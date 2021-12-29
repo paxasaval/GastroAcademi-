@@ -1,1 +1,5 @@
-<p>grid-resourses works!</p>
+<mat-grid-list cols="3">
+  <mat-grid-tile *ngFor="let card of cards">
+    <app-card-resource></app-card-resource>
+  </mat-grid-tile>
+</mat-grid-list>
