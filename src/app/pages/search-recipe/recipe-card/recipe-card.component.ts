@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-card',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipe-card.component.sass']
 })
 export class RecipeCardComponent implements OnInit {
-
+  @Input() card:any
   constructor() { }
 
   ngOnInit(): void {

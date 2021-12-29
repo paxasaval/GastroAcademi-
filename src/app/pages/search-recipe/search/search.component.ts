@@ -36,13 +36,57 @@ export class SearchComponent implements OnInit {
   filteredOptions_2?: Observable<Conservacion[]>;
   filteredOptions_3?: Observable<Tecnicas[]>;
 
-  cards: any[] = [1,2,3,4,5,6,7,8]
+  cards1?:any[]
+  cards = [
+    {
+      name:'card1',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card2',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card3',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card4',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card5',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card6',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'bcard7',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'acard8',
+      image:'path:imamge1',
+      path:'url1'
+    },
+  ]
   constructor() { }
 
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.cards1 =  this.cards.filter(card=> card.name.toLowerCase().includes(filterValue))
+
   }
 
   ngOnInit(): void {
@@ -66,6 +110,7 @@ export class SearchComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filter_3(name) : this.options_3.slice())),
     );
+    this.cards1=this.cards
   }
 
   displayFn(user: Ingredientes): string {

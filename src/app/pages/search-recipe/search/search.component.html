@@ -60,9 +60,9 @@
       </div>
     </div>
     <div class="grid-recipe">
-      <mat-grid-list cols="4">
-        <mat-grid-tile *ngFor="let card of cards">
-          <app-recipe-card></app-recipe-card>
+      <mat-grid-list cols="4" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let card of  cards1">
+          <app-recipe-card [card]='card'></app-recipe-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
