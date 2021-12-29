@@ -5,6 +5,7 @@ import { MainTopicRoutingModule } from './main-topic-routing.module';
 import { LayerComponent } from './layer/layer.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { GridResoursesComponent } from './components/grid-resourses/grid-resourses.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { GridResoursesComponent } from './components/grid-resourses/grid-resours
   ],
   imports: [
     CommonModule,
-    MainTopicRoutingModule
+    MainTopicRoutingModule,
+    MaterialModule
   ]
 })
 export class MainTopicModule { }

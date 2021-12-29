@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MaterialModule } from './shared/material/material.module';
 import { NavigateBarComponent } from './shared/navigate-bar/navigate-bar.component';
 
 @NgModule({
@@ -12,7 +13,8 @@ import { NavigateBarComponent } from './shared/navigate-bar/navigate-bar.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
