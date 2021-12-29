@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material/icon';
 
 export interface Ingredientes {
   name: string;
@@ -79,7 +81,12 @@ export class SearchComponent implements OnInit {
       path:'url1'
     },
   ]
-  constructor() { }
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('ingredientes',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 2.svg'))
+    iconRegistry.addSvgIcon('coccion',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 3.svg'))
+    iconRegistry.addSvgIcon('coservacion',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 5.svg'))
+    iconRegistry.addSvgIcon('tecnicas',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 6.svg'))
+  }
 
 
 
