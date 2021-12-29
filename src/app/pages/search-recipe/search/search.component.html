@@ -1,0 +1,70 @@
+<div class="main">
+  <div class="main-container">
+    <div class="search">
+      <div class="search-input">
+        <mat-form-field appearance="standard">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        </mat-form-field>
+      </div>
+
+      <div class="filters">
+        <!---->
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Ingredientes</mat-label>
+            <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <!---->
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Tipos de Coocion</mat-label>
+            <input type="text" matInput [formControl]="myControl_1" [matAutocomplete]="auto_1">
+            <mat-autocomplete #auto_1="matAutocomplete" [displayWith]="displayFn_1">
+              <mat-option *ngFor="let option of filteredOptions_1 | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <!---->
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Tipos de Conservacion</mat-label>
+            <input type="text" matInput [formControl]="myControl_2" [matAutocomplete]="auto_2">
+            <mat-autocomplete #auto_2="matAutocomplete" [displayWith]="displayFn_2">
+              <mat-option *ngFor="let option of filteredOptions_2 | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <!---->
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Tecnicas Culinarias</mat-label>
+            <input type="text" matInput [formControl]="myControl_3" [matAutocomplete]="auto_3">
+            <mat-autocomplete #auto_3="matAutocomplete" [displayWith]="displayFn_3">
+              <mat-option *ngFor="let option of filteredOptions_3 | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+    <div class="grid-recipe">
+      <mat-grid-list cols="4">
+        <mat-grid-tile *ngFor="let card of cards">
+          <app-recipe-card></app-recipe-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+</div>
