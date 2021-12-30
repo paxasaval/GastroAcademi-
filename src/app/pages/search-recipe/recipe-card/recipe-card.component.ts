@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-card',
@@ -7,9 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class RecipeCardComponent implements OnInit {
   @Input() card:any
-  constructor() { }
+  constructor(private router:Router) { }
+
+  openRecipe(){
+    this.router.navigate([`Buscar-receta/Receta/${this.card.path}`])
+  }
 
   ngOnInit(): void {
   }
+
 
 }
