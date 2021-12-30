@@ -1,1 +1,64 @@
-<p>recipe works!</p>
+<div class="main">
+  <div class="title">
+    <h1>Ratatoille</h1>
+  </div>
+  <div class="main-container">
+    <div class="left-container">
+      <div class="headers">
+        <h3 class="title-ingredientes">Ingredientes</h3>
+        <h3 class="title-cantidad"> Cantidad</h3>
+        <h3 class="title-medida">Medida</h3>
+      </div>
+      <div class="ingredientes-list">
+        <div class="ingrediente">
+          <p>Tomate</p>
+          <span>10</span>
+          <span>Libras</span>
+        </div>
+      </div>
+      <div class="tecnicas-carrousel">
+        <div class="title-carrousel">
+          <h2>Tecnicas Culinarias</h2>
+        </div>
+        <div class="carrousel">
+            <carousel
+            [height]=150
+            [width]=490
+            [cellWidth]=150
+            [cellsToShow]=3
+            [loop]=true
+            [arrowsOutside]=true
+            arrowsTheme='dark'>
+            <div *ngFor="let tecnica of tecnicas" class="carousel-cell">
+              <img [src]="tecnica.path" alt="">
+            </div>
+            </carousel>
+        </div>
+      </div>
+    </div>
+    <div class="right-container">
+      <div class="carrousel-time">
+        <div class="carrousel">
+          <carousel
+          [height]=150
+          [width]=500
+          [cellWidth]=150
+          [cellsToShow]=3
+          [loop]=true
+          [arrowsOutside]=true
+          arrowsTheme='dark'>
+          <div *ngFor="let tiempo of tiempos" class="carousel-cell cell-time">
+            <p>{{tiempo.name}}</p>
+            <span>{{tiempo.time}}</span>
+            <p>{{tiempo.medida_t}}</p>
+          </div>
+          </carousel>
+      </div>
+      </div>
+      <div class="recipe-img">
+        <img src="../../../../assets/image 10.png" alt="">
+      </div>
+    </div>
+
+  </div>
+</div>
