@@ -3,12 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'Topic',
-    loadChildren: () => import('./pages/main-topic/main-topic.module').then(m => m.MainTopicModule),
-  },
-  {
-    path: 'Buscar-receta',
-    loadChildren: () => import('./pages/search-recipe/search-recipe.module').then(m => m.SearchRecipeModule),
+    path: '',
+    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule)
   },
   {
     path: 'Admin',
