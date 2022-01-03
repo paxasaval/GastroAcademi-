@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-nuevo-test',
   templateUrl: './nuevo-test.component.html',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NuevoTestComponent implements OnInit {
 
+  qestions: any[] = [{}]
+
   constructor() { }
+
+  addQuestion(){
+    var pregunta = {
+      name:'pregunta'
+    }
+    this.qestions.push(pregunta)
+  }
 
   ngOnInit(): void {
   }
