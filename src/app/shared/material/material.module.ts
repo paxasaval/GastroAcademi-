@@ -9,7 +9,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {HttpClientModule } from "@angular/common/http";
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+import {MatCheckboxModule} from '@angular/material/checkbox'
 
 
 @NgModule({
@@ -25,7 +27,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    IvyCarouselModule,
+    MatCheckboxModule
   ],
   exports: [
     MatButtonModule,
@@ -37,7 +42,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    IvyCarouselModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

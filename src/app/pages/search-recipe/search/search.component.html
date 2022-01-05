@@ -1,10 +1,13 @@
 <div class="main">
+  <img class="lechuga" src="../../../../assets/image 8.png" alt="">
+  <img class="tomate" src="../../../../assets/image 9.png" alt="">
   <div class="main-container">
     <div class="search">
       <div class="search-input">
         <mat-form-field appearance="standard">
-          <mat-label>Filter</mat-label>
+          <mat-label class="label">Buscardor(Nombre de la Receta)</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
 
@@ -12,7 +15,8 @@
         <!---->
         <form class="example-form">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Ingredientes</mat-label>
+            <mat-label class="label">Ingredientes</mat-label>
+            <mat-icon matPrefix svgIcon="ingredientes" aria-hidden="false" aria-label="ingredientes"></mat-icon>
             <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -24,7 +28,8 @@
         <!---->
         <form class="example-form">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Tipos de Coocion</mat-label>
+            <mat-label class="label">Tipos de Coocion</mat-label>
+            <mat-icon matPrefix svgIcon="coccion" aria-hidden="false" aria-label="coccion"></mat-icon>
             <input type="text" matInput [formControl]="myControl_1" [matAutocomplete]="auto_1">
             <mat-autocomplete #auto_1="matAutocomplete" [displayWith]="displayFn_1">
               <mat-option *ngFor="let option of filteredOptions_1 | async" [value]="option">
@@ -36,7 +41,8 @@
         <!---->
         <form class="example-form">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Tipos de Conservacion</mat-label>
+            <mat-label class="label">Tipos de Conservacion</mat-label>
+            <mat-icon matPrefix svgIcon="coservacion" aria-hidden="false" aria-label="coservacion"></mat-icon>
             <input type="text" matInput [formControl]="myControl_2" [matAutocomplete]="auto_2">
             <mat-autocomplete #auto_2="matAutocomplete" [displayWith]="displayFn_2">
               <mat-option *ngFor="let option of filteredOptions_2 | async" [value]="option">
@@ -48,7 +54,8 @@
         <!---->
         <form class="example-form">
           <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Tecnicas Culinarias</mat-label>
+            <mat-label class="label">Tecnicas Culinarias</mat-label>
+            <mat-icon matPrefix svgIcon="tecnicas" aria-hidden="false" aria-label="tecnicas"></mat-icon>
             <input type="text" matInput [formControl]="myControl_3" [matAutocomplete]="auto_3">
             <mat-autocomplete #auto_3="matAutocomplete" [displayWith]="displayFn_3">
               <mat-option *ngFor="let option of filteredOptions_3 | async" [value]="option">
@@ -60,9 +67,9 @@
       </div>
     </div>
     <div class="grid-recipe">
-      <mat-grid-list cols="4">
-        <mat-grid-tile *ngFor="let card of cards">
-          <app-recipe-card></app-recipe-card>
+      <mat-grid-list cols="4" rowHeight="1:1">
+        <mat-grid-tile *ngFor="let card of  cards1">
+          <app-recipe-card [card]='card'></app-recipe-card>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

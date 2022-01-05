@@ -2,10 +2,26 @@
 
 @include mat.core();
 
-$my-primary: mat.define-palette(mat.$amber-palette, 100);
-$my-accent: mat.define-palette(mat.$orange-palette, A200);
+$my-primary-color: (
+  50 : #e58846,
+  100 : #ffb874,
+  200 : #ae5a19,
+  contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        )
+);
+
+$my-primary: mat.define-palette($my-primary-color, 50);
+$my-accent: mat.define-palette($my-primary-color, 100);
 //theming
-$my-secundary: mat.define-palette(mat.$orange-palette, A400);
+$my-secundary: mat.define-palette($my-primary-color, 200);
+
+
+$my-secundary1: mat.define-palette(mat.$deep-orange-palette, A700);
+
+
 
 $my-theme: mat.define-light-theme((
  color: (
@@ -14,5 +30,7 @@ $my-theme: mat.define-light-theme((
    warn: $my-secundary
  )
 ));
+
 @include mat.core-theme($my-theme);
 @include mat.button-theme($my-theme);
+

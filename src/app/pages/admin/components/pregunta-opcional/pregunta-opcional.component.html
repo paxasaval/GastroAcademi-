@@ -1,0 +1,26 @@
+<div class="main">
+  <div class="questions">
+    <mat-form-field>
+      <mat-label>Enunciado</mat-label>
+      <input matInput placeholder="Enunciado" [(ngModel)]="enunciado">
+    </mat-form-field>
+    <div class="btn-questions-types">
+      <button class="btn-type" color="primary" mat-raised-button>Opcion Multiple</button>
+      <button class="btn-type" disabled color="primary" mat-raised-button>Objetiva</button>
+      <button class="btn-type" disabled  color="primaryv" mat-raised-button>Contexto</button>
+      <button class="btn-type" disabled color="primary" mat-raised-button>Casillas</button>
+    </div>
+  </div>
+  <div class="options">
+    <div *ngFor="let option of options" class="option">
+      <mat-form-field>
+        <mat-label>{{"Opcion "+(option.id!+1)}}</mat-label>
+        <input matInput [(ngModel)]="option.name">
+        <mat-checkbox color="warn" matSuffix class="example-margin" [(ngModel)]="option.check"></mat-checkbox>
+        <button  mat-icon-button matSuffix (click)="deleteOption(option)"><mat-icon color="warn" class="btn-deleteOption">delete_outline</mat-icon></button>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-icon-button (click)="addOption()" ><mat-icon>add_circle_outline</mat-icon></button>
+  <hr>
+</div>

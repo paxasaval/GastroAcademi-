@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material/icon';
 
 export interface Ingredientes {
   name: string;
@@ -36,13 +38,62 @@ export class SearchComponent implements OnInit {
   filteredOptions_2?: Observable<Conservacion[]>;
   filteredOptions_3?: Observable<Tecnicas[]>;
 
-  cards: any[] = [1,2,3,4,5,6,7,8]
-  constructor() { }
+  cards1?:any[]
+  cards = [
+    {
+      name:'card1',
+      image:'path:imamge1',
+      path:'url1'
+    },
+    {
+      name:'card2',
+      image:'path:imamge1',
+      path:'url2'
+    },
+    {
+      name:'card3',
+      image:'path:imamge1',
+      path:'url3'
+    },
+    {
+      name:'card4',
+      image:'path:imamge1',
+      path:'url4'
+    },
+    {
+      name:'card5',
+      image:'path:imamge1',
+      path:'url5'
+    },
+    {
+      name:'card6',
+      image:'path:imamge1',
+      path:'url6'
+    },
+    {
+      name:'bcard7',
+      image:'path:imamge1',
+      path:'url7'
+    },
+    {
+      name:'acard8',
+      image:'path:imamge1',
+      path:'url8'
+    },
+  ]
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('ingredientes',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 2.svg'))
+    iconRegistry.addSvgIcon('coccion',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 3.svg'))
+    iconRegistry.addSvgIcon('coservacion',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 5.svg'))
+    iconRegistry.addSvgIcon('tecnicas',sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 6.svg'))
+  }
 
 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    this.cards1 =  this.cards.filter(card=> card.name.toLowerCase().includes(filterValue))
+
   }
 
   ngOnInit(): void {
@@ -66,6 +117,7 @@ export class SearchComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filter_3(name) : this.options_3.slice())),
     );
+    this.cards1=this.cards
   }
 
   displayFn(user: Ingredientes): string {
