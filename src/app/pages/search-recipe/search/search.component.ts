@@ -48,37 +48,37 @@ export class SearchComponent implements OnInit {
     {
       name:'card2',
       image:'path:imamge1',
-      path:'url1'
+      path:'url2'
     },
     {
       name:'card3',
       image:'path:imamge1',
-      path:'url1'
+      path:'url3'
     },
     {
       name:'card4',
       image:'path:imamge1',
-      path:'url1'
+      path:'url4'
     },
     {
       name:'card5',
       image:'path:imamge1',
-      path:'url1'
+      path:'url5'
     },
     {
       name:'card6',
       image:'path:imamge1',
-      path:'url1'
+      path:'url6'
     },
     {
       name:'bcard7',
       image:'path:imamge1',
-      path:'url1'
+      path:'url7'
     },
     {
       name:'acard8',
       image:'path:imamge1',
-      path:'url1'
+      path:'url8'
     },
   ]
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {

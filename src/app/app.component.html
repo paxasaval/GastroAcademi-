@@ -2,35 +2,6 @@
   <div class="page">
     <router-outlet></router-outlet>
   </div>
-  <div class="menu">
-    <mat-drawer-container class="navigate-bar" autosize>
-      <mat-drawer #drawer class="navigate-menu" mode="side">
-        <div class="menu-box">
-          <a class="link" (click)="drawer.toggle()" routerLink="Topic/Tecnicas-culinarias" routerLinkActive="active">Tecnicas Culinarias</a>
-        </div>
-        <div class="menu-box">
-          <a class="link" (click)="drawer.toggle()"  routerLink="Topic/Metodos-de-Coocion" routerLinkActive="active">Metodos de Coocion</a>
-        </div>
-        <div class="menu-box">
-          <a class="link" (click)="drawer.toggle()"  routerLink="Topic/Metodos-de-conservacion" routerLinkActive="active">Metodos de Conservacion</a>
-
-        </div>
-        <div class="menu-box">
-          <a class="link" (click)="drawer.toggle()"  routerLink="Buscar-receta" routerLinkActive="active">Recetas</a>
-        </div>
-
-      </mat-drawer>
-      <mat-drawer-content>
-        <div class="btn-menu">
-          <button class="btn" mat-fab color="warn" (click)="drawer.toggle()" aria-label="menu">
-            <mat-icon>arrow_back_ios</mat-icon>
-          </button>
-        </div>
-      </mat-drawer-content>
-
-
-    </mat-drawer-container>
-  </div>
 </div>
 
 
