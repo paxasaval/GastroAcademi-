@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gastroacademi": {
+      "hosting": {
+        "proyecto": [
+          "gastroacademi"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gastroacademi"
+  }
+}
