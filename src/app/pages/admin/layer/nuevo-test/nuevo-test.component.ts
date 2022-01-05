@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class NuevoTestComponent implements OnInit {
 
   qestions: any[] = [{}]
+  tittle=''
+  description=''
 
   constructor() { }
 

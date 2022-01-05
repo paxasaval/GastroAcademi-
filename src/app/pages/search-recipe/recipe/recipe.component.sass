@@ -1,23 +1,31 @@
 .main
-  min-width: 90vw
-  min-height: 90vh
+  min-width: 80vw
+  min-height: 100vh
+  display: flex
+  justify-content: start
+  align-items: center
+  flex-direction: column
 
 .title
   margin-top: 2.5em
-  width: 50%
+  width: 85%
   text-align: center
+  background-color: var(--warn)
+  border-radius: 16px
+  padding-top: 0.5rem
 
 .main-container
   display: flex
   margin: 2em
-  justify-content: space-around
+  justify-content: space-between
+  height: auto
+  width: 85%
 
 .left-container
   width: 48%
-  background-color: #D7BF9E
+  background-color: var(--primary)
   border-radius: 11px
   padding-top: 2.5em
-  padding-left: 1.5em
 
 .headers
   display: flex
@@ -72,27 +80,46 @@
   margin-bottom: 2rem
   margin-left: 5%
 .right-container
-  width: 48%
-  margin-left: 5%
+  width: 50%
   z-index: 0
+  background-color: var(--accent)
+  border-radius: 16px
+  display: flex
+  flex-direction: column
+  justify-content: space-evenly
 .carrousel-time
   height: 20%
-  .carrousel
-    margin-right: 0
+  width: 100%
 
-.recipe-img
-  height: 80%
   display: flex
   justify-content: center
+  align-items: center
+
+
+.carrousel
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+
+.recipe-img
+  height: 75%
+  display: flex
+  justify-content: center
+  padding: 0.5rem
   img
-    width: auto
-    height: 95%
+    width: 100%
+    height: auto
     margin-top: 5%
+    border-top-left-radius: 16px
+    border-top-right-radius: 16px
+
 
 .carrousel
   display: flex
   justify-content: center
   margin-right: 1.5rem
+  width: 100%
 .cell-time
   background: #EDEDED
   border-radius: 16px

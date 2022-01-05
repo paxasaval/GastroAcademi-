@@ -2,15 +2,15 @@
   <div class="info-test">
     <mat-form-field>
       <mat-label>Titulo del Test</mat-label>
-      <input matInput value="Titulo">
+      <input matInput [value]="tittle">
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Descripcon</mat-label>
-      <input matInput value="Descripcion">
+      <mat-label>Descripcion</mat-label>
+      <input matInput [value]="description">
     </mat-form-field>
   </div>
   <div class="test">
-    <button class="btn-newQuestion" mat-raised-button color="accent" (click)="addQuestion()">Agregar Pregnta</button>
+    <button class="btn-newQuestion" mat-raised-button color="primary" (click)="addQuestion()">Agregar Pregnta</button>
     <div class="test-questions">
       <app-pregunta-opcional *ngFor="let qestion of qestions"></app-pregunta-opcional>
     </div>
