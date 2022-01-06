@@ -14,7 +14,7 @@ export class TimesService {
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFirestore
-  ) { 
+  ) {
     this.timesCollection = afs.collection<Times>('times');
     this.times_s = this.timesCollection.valueChanges();
   }
@@ -38,4 +38,5 @@ export class TimesService {
       }))
     )
   }
+  //getTimeByName
 }
