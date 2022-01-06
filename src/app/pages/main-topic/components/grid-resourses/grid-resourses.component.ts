@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StaticResource } from 'src/app/models/staticResource';
 
 @Component({
   selector: 'app-grid-resourses',
@@ -10,7 +9,7 @@ export class GridResoursesComponent implements OnInit {
 
   @Input() name='';
 
-  cards:StaticResource[] =[
+  cards:any[] =[
     {img: '../../../../../assets/Rectangle 81.png', title:'lorem ipsum'},
     {img: '../../../../../assets/Rectangle 81.png', title:'lorem ipsum'},
     {img: '../../../../../assets/Rectangle 81.png', title:'lorem ipsum'},
