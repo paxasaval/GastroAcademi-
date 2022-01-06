@@ -10,6 +10,9 @@ export class RecipeCardComponent implements OnInit {
   @Input() card:any
   constructor(private router:Router) { }
 
+  //fetch ingredients, fetch intruction,  fetchTimes
+  //console.log()
+
   openRecipe(){
     this.router.navigate([`Buscar-receta/Receta/${this.card.path}`])
   }
