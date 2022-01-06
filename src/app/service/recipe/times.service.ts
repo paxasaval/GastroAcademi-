@@ -38,5 +38,14 @@ export class TimesService {
       }))
     )
   }
-  //getTimeByName
+  
+  getTimesByName(name: string) {
+    return this.afs.collection<Times>('times', ref => ref.where('name', "==", name)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as TimesId
+        data.id = a.payload.doc.id
+        return data
+      }))
+    )
+  }
 }
