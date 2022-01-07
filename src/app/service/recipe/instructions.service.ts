@@ -14,13 +14,13 @@ export class InstructionsService {
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFirestore
-  ) { 
+  ) {
     this.instructionsCollection = afs.collection<Instructions>('instructions');
     this.instructions_s = this.instructionsCollection.valueChanges();
   }
 
   getAllInstructions() {
-    return this.afs.collection<Instructions>('instructions', ref => ref.orderBy('position','desc')).snapshotChanges().pipe(
+    return this.afs.collection<Instructions>('instructions', ref => ref.orderBy('recipe','desc')).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as InstructionsId
         data.id = a.payload.doc.id;

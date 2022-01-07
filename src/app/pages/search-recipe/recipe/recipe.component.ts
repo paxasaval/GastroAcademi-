@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Instructions } from 'src/app/models/instructions';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
 import { InstructionsService } from 'src/app/service/recipe/instructions.service';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
@@ -48,7 +49,9 @@ export class RecipeComponent implements OnInit {
     private instructionsService: InstructionsService,
     private router: ActivatedRoute
   ) { }
-  
+
+
+
   fetchIngredientsRecipe(){
     this.ingredientsService.getIngredientsByRecipe(this.recipeId).subscribe(
       result => {
@@ -75,6 +78,10 @@ export class RecipeComponent implements OnInit {
           this.instructions.push(auxInstructions)
           console.log(auxInstructions)
         })
+        var aux = this.instructions.slice()
+        aux.forEach(x=>{
+          this.instructions[x.position!-1]=x
+        })
       }
     )
   }
@@ -88,7 +95,7 @@ export class RecipeComponent implements OnInit {
           auxTimes.name = x.name
           auxTimes.time = x.total
           auxTimes.medida_t = x.measure
-          this.times.push(auxTimes)         
+          this.times.push(auxTimes)
         })
       }
     )

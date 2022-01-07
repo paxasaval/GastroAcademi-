@@ -16,8 +16,8 @@
           <span>{{ingrediente.measure}}</span>
         </div>
       </div>
-      <div class="headers" >
-        <h3>Instrucciones</h3>
+      <div class="headers-intructions">
+        <h3 class="title-intructions">Instrucciones</h3>
       </div>
       <div class="instructions-list">
         <div *ngFor="let instruction of instructions" class="instruction">
@@ -47,20 +47,40 @@
     </div>
     <div class="right-container">
       <div class="carrousel-time">
-          <carousel
-          [height]=150
-          [width]=340
-          [cellWidth]=150
-          [cellsToShow]=3
-          [loop]=true
-          [arrowsOutside]=true
-          arrowsTheme='dark'>
-          <div *ngFor="let tiempo of times" class="carousel-cell cell-time">
-            <p>{{tiempo.name}}</p>
-            <span>{{tiempo.time}}</span>
-            <p>{{tiempo.medida_t}}</p>
-          </div>
+        <div *ngIf="times.length < 2; else elseBlock">
+          <carousel [height]=150 [width]=150 [cellWidth]=150 [cellsToShow]=1 [loop]=true [arrowsOutside]=true
+            arrowsTheme='dark'>
+            <div *ngFor="let tiempo of times" class="carousel-cell cell-time">
+              <p>{{tiempo.name}}</p>
+              <span>{{tiempo.time}}</span>
+              <p>{{tiempo.medida_t}}</p>
+            </div>
           </carousel>
+        </div>
+        <ng-template #elseBlock>
+          <div *ngIf="times.length < 3; else elseBlock1">
+            <carousel [height]=150 [width]=250 [cellWidth]=150 [cellsToShow]=2 [loop]=true [arrowsOutside]=true
+              arrowsTheme='dark'>
+              <div *ngFor="let tiempo of times" class="carousel-cell cell-time">
+                <p>{{tiempo.name}}</p>
+                <span>{{tiempo.time}}</span>
+                <p>{{tiempo.medida_t}}</p>
+              </div>
+            </carousel>
+          </div>
+          <ng-template #elseBlock1>
+            <carousel [height]=150 [width]=340 [cellWidth]=150 [cellsToShow]=3 [loop]=true [arrowsOutside]=true
+              arrowsTheme='dark'>
+              <div *ngFor="let tiempo of times" class="carousel-cell cell-time">
+                <p>{{tiempo.name}}</p>
+                <span>{{tiempo.time}}</span>
+                <p>{{tiempo.medida_t}}</p>
+              </div>
+            </carousel>
+          </ng-template>
+
+        </ng-template>
+
       </div>
       <div class="recipe-img">
         <img src="../../../../assets/image 10.png" alt="">

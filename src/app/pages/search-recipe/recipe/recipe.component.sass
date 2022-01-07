@@ -29,22 +29,29 @@
 
 .headers
   display: flex
+  text-align: center
+  width: 100%
+  height: 2.5rem
 
 .title-ingredientes
+  width: 69%
+
+  margin: 0 0.75rem
+  padding: 0.25rem 0.5rem
   text-align: left
-  width: 70%
-  margin: 0 0.25rem
-  padding: 0.25rem 0.5rem
+
 .title-cantidad
-  text-align: center
-  width: 15%
-  margin: 0 0.25rem
-  padding: 0.25rem 0.5rem
+    width: 14%
+
+    margin-right:0.75rem
+    padding: 0.25rem 0.5rem
+
 .title-medida
-  text-align: center
-  width: 15%
-  margin: 0 0.25rem
-  padding: 0.25rem 0.5rem
+    width: 14%
+
+    margin-right:0.75rem
+    padding: 0.25rem 0.5rem
+
 
 .ingrediente-list
   display: flex
@@ -55,13 +62,13 @@
   display: flex
   width: 100%
   justify-content: space-between
-  margin-top: 2% 
+  margin-top: 2%
   p
     width: 69%
     background: #FFFFFF
     border-radius: 6px
     height: 1.5rem
-    margin: 0 0.25rem
+    margin: 0 0.75rem
     padding: 0.25rem 0.5rem
   span
     width: 14%
@@ -69,35 +76,47 @@
     background: #FFFFFF
     border-radius: 6px
     height: 1.5rem
-    margin: 0 0.25rem
+    margin-right:0.75rem
     padding: 0.25rem 0.5rem
-
-
+.headers-intructions
+  display: flex
+  justify-content: center
+  text-align: center
+  align-items: center
+.title-intructions
+  text-align: center
+  width: 100%
+  margin: 1rem 0
+  padding: 0.25rem 0.5rem
 .instructions-list
   display: flex
   flex-direction: column
   width: 100%
+  margin-bottom: 0.5rem
 
 .instruction
   display: flex
   width: 100%
-  justify-content: space-between
-  margin-top: 2% 
+  margin-top: 1%
+  margin-bottom: 1%
   p
     width: 99%
     background: #FFFFFF
+    text-align: justify
     border-radius: 6px
-    margin: 0 0.25rem
+    margin: 0 0.75rem
     padding: 0.25rem 0.5rem
   span
     width: 5%
+    display: flex
+    justify-content: center
     text-align: center
+    align-items: center
     background: #FFFFFF
     border-radius: 6px
-    height: 1.5rem
-    margin: 0 0.25rem
+    margin-left: 0.75rem
     padding: 0.25rem 0.5rem
-    
+
 .tecnicas-carrousel
   display: flex
   flex-direction: column
@@ -134,10 +153,11 @@
   height: 75%
   display: flex
   justify-content: center
+  align-items: center
   padding: 0.5rem
   img
-    width: 100%
     height: auto
+    width: 100%
     margin-top: 5%
     border-top-left-radius: 16px
     border-top-right-radius: 16px
