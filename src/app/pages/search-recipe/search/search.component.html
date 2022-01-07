@@ -1,8 +1,10 @@
+<div>
+  <img class="background" src="../../../../assets/image 12.jpg" alt="">
+</div>
 <div class="main">
   <img class="lechuga" src="../../../../assets/image 8.png" alt="">
   <img class="tomate" src="../../../../assets/image 9.png" alt="">
   <div class="main-container">
-    <!-- <img class="background" src="../../../../assets/image 12.jpg" alt=""> -->
     <div class="search">
       <div class="search-input">
         <mat-form-field appearance="standard">
@@ -68,9 +70,9 @@
       </div>
     </div>
     <div class="grid-recipe">
-        <div *ngFor="let card of cards">
-          <app-recipe-card [card]='card'></app-recipe-card>
-        </div>
+      <div *ngFor="let card of cards">
+        <app-recipe-card [card]='card'></app-recipe-card>
+      </div>
     </div>
   </div>
 </div>
