@@ -52,9 +52,9 @@ export class FeedbackService {
   getFeedbackByUser(user : string) {
     return this.afs.collection<Feedback>('feedback', ref => ref.where('user', '==', user)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as UserId
+        /* const data = a.payload.doc.data() as UserId
         data.id = a.payload.doc.id
-        return data
+        return data */
       }))
     )
   }

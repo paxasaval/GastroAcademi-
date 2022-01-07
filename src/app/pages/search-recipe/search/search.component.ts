@@ -23,6 +23,7 @@ export interface Tecnicas {
 export interface Card{
   name?: string
   image?: string
+  path?: string
 }
 
 @Component({
@@ -67,8 +68,8 @@ export class SearchComponent implements OnInit {
           var auxRecipe:Card ={}
           auxRecipe.name=x.name
           auxRecipe.image=x.image
+          auxRecipe.path=x.id
           this.cards.push(auxRecipe)
-
         })
       }
     )

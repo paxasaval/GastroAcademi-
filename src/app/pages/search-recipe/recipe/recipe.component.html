@@ -10,13 +10,22 @@
         <h3 class="title-medida">Medida</h3>
       </div>
       <div class="ingredientes-list">
-        <div class="ingrediente">
-          <p>Tomate</p>
-          <span>10</span>
-          <span>Libras</span>
+        <div *ngFor="let ingrediente of ingredients" class="ingrediente">
+          <p>{{ingrediente.name}}</p>
+          <span>{{ingrediente.quantity}}</span>
+          <span>{{ingrediente.measure}}</span>
         </div>
       </div>
-      <div class="tecnicas-carrousel">
+      <div class="headers" >
+        <h3>Instrucciones</h3>
+      </div>
+      <div class="instructions-list">
+        <div *ngFor="let instruction of instructions" class="instruction">
+          <span>{{instruction.position}}</span>
+          <p>{{instruction.description}}</p>
+        </div>
+      </div>
+      <!-- <div class="tecnicas-carrousel">
         <div class="title-carrousel">
           <h2>Tecnicas Culinarias</h2>
         </div>
@@ -34,7 +43,7 @@
             </div>
             </carousel>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="right-container">
       <div class="carrousel-time">
@@ -46,7 +55,7 @@
           [loop]=true
           [arrowsOutside]=true
           arrowsTheme='dark'>
-          <div *ngFor="let tiempo of tiempos" class="carousel-cell cell-time">
+          <div *ngFor="let tiempo of times" class="carousel-cell cell-time">
             <p>{{tiempo.name}}</p>
             <span>{{tiempo.time}}</span>
             <p>{{tiempo.medida_t}}</p>

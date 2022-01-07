@@ -20,7 +20,7 @@ export class InstructionsService {
   }
 
   getAllInstructions() {
-    return this.afs.collection<Instructions>('instructions').snapshotChanges().pipe(
+    return this.afs.collection<Instructions>('instructions', ref => ref.orderBy('position','desc')).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as InstructionsId
         data.id = a.payload.doc.id;
@@ -32,7 +32,7 @@ export class InstructionsService {
   getInstructionByRecipe(recipe : string) {
     return this.afs.collection<Instructions>('instructions', ref => ref.where('recipe', '==', recipe)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as RecipeId
+        const data = a.payload.doc.data() as InstructionsId
         data.id = a.payload.doc.id
         return data
       }))
