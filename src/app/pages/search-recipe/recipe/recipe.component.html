@@ -1,6 +1,6 @@
 <div class="main">
-  <div class="title">
-    <h1>Ratatoille</h1>
+  <div *ngFor="let recipe of recipes" class="title">
+    <h1>{{recipe.name}}</h1>
   </div>
   <div class="main-container">
     <div class="left-container">
@@ -82,8 +82,8 @@
         </ng-template>
 
       </div>
-      <div class="recipe-img">
-        <img src="../../../../assets/image 10.png" alt="">
+      <div *ngFor="let recipe of recipes" class="recipe-img">
+        <img [src]="recipe.image" alt="">
       </div>
     </div>
 

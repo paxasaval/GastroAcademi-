@@ -26,4 +26,14 @@ export class RecipeService {
        }))
      )
    }
+
+   getRecipeById(recipe:string){
+     return this.afs.doc<Recipe>(`recipe/${recipe}`).snapshotChanges().pipe(
+       map(a => {
+         const data = a.payload.data() as RecipeId
+         data.id = a.payload.id
+         console.log(data)
+         return data
+       }))
+   }
 }

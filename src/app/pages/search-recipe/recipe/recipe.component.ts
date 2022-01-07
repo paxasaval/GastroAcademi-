@@ -23,6 +23,11 @@ export interface InstructionsList{
   description?: string
 }
 
+export interface RecipeInfo{
+  name?: string
+  image?: string
+}
+
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -35,6 +40,8 @@ export class RecipeComponent implements OnInit {
     { path: '../../../../assets/image 10.png' },
     { path: '../../../../assets/image 10.png' },
   ]
+
+  recipes: RecipeInfo[] = []
 
   times: TimeList[] = []
 
@@ -50,7 +57,18 @@ export class RecipeComponent implements OnInit {
     private router: ActivatedRoute
   ) { }
 
-
+  fetchRecipe(){
+    this.recipeService.getRecipeById(this.recipeId).subscribe(
+      result => {
+        this.recipes = []      
+          var auxRecipe: RecipeInfo = {}
+          auxRecipe.name = result.name
+          auxRecipe.image = result.image
+          this.recipes.push(auxRecipe)
+          console.log(auxRecipe)
+      }
+    )
+  }
 
   fetchIngredientsRecipe(){
     this.ingredientsService.getIngredientsByRecipe(this.recipeId).subscribe(
@@ -62,6 +80,7 @@ export class RecipeComponent implements OnInit {
           auxIngredients.quantity = x.quantity
           auxIngredients.measure = x.measure
           this.ingredients.push(auxIngredients)
+          
         })
       }
     )
@@ -76,7 +95,6 @@ export class RecipeComponent implements OnInit {
           auxInstructions.position = x.position
           auxInstructions.description = x.description
           this.instructions.push(auxInstructions)
-          console.log(auxInstructions)
         })
         var aux = this.instructions.slice()
         aux.forEach(x=>{
@@ -104,6 +122,7 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.params.subscribe((params:  Params) => {       this.recipeId = params["id"]   });
+    this.fetchRecipe();
     this.fetchRTimesRecipe();
     this.fetchInstructionsRecipe();
     this.fetchIngredientsRecipe();
