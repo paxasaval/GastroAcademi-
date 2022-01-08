@@ -31,7 +31,7 @@ export class IngredientsService {
    getIngredientsByRecipe(recipe: string){
     return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('recipe','==',recipe)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
-        const data = a.payload.doc.data() as RecipeId
+        const data = a.payload.doc.data() as IngredientsId
         data.id = a.payload.doc.id
         return data
       }))
@@ -41,7 +41,7 @@ export class IngredientsService {
    getIngredientsByName(name: string){
     return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('name','==',name)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
-        const data = a.payload.doc.data() as RecipeId
+        const data = a.payload.doc.data() as IngredientsId
         data.id = a.payload.doc.id
         return data
       }))
