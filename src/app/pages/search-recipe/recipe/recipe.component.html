@@ -86,22 +86,27 @@
       <!--Imagen y Tiempos de Preparacion-->
       <div class="steps-time">
         <h2>Siguiente etapa de preparación</h2>
-        <!--image y nota-->
-        <div class="img-notes">
-          <div class="img">
-            <img [src]="recipe.image" alt="">
+        <div class="steps-time-container">
+          <!--image y nota-->
+          <div class="img-notes">
+            <div class="img">
+              <img [src]="recipe.image" alt="">
+            </div>
+            <div class="notes">
+              <p><b>Nota:</b>Recuerda tener todos tus ingredientes listos para no tener contra tiempos con tu
+                preparación</p>
+            </div>
           </div>
-          <div class="notes">
-            <p><b>Nota:</b>Recuerda tener todos tus ingredientes listos para no tener contra tiempos con tu preparación</p>
+          <!--steps-time-->
+          <div class="times-container">
+            <div *ngFor="let time of times" class="times-card">
+              <span>{{time.time}}:00</span>
+              <p>Tiempo de </p>
+              <p>{{time.name}}</p>
+            </div>
           </div>
         </div>
-        <!--steps-time-->
-        <div class="times-container">
-          <div *ngFor="let time of times" class="times-card">
-            <span>{{time.time}}</span>
-            <p>{{time.name}}</p>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
