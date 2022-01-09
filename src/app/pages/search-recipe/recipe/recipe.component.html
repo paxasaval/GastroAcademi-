@@ -83,6 +83,14 @@
       <div class="steps-time">
         <h2>Siguiente etapa de preparación</h2>
         <div class="steps-time-container">
+          <!--steps-time-->
+          <div class="times-container">
+            <div *ngFor="let time of times" (click)="loadTime(time.time!, time.medida_t!)" class="times-card">
+              <span>{{time.time}}:00</span>
+              <p>Tiempo de </p>
+              <p>{{time.name}}</p>
+            </div>
+          </div>
           <!--image y nota-->
           <div class="img-notes">
             <div class="img">
@@ -91,14 +99,6 @@
             <div class="notes">
               <p><b>Nota:</b>Recuerda tener todos tus ingredientes listos para no tener contra tiempos con tu
                 preparación</p>
-            </div>
-          </div>
-          <!--steps-time-->
-          <div class="times-container">
-            <div *ngFor="let time of times" (click)="loadTime(time.time!, time.medida_t!)" class="times-card">
-              <span>{{time.time}}:00</span>
-              <p>Tiempo de </p>
-              <p>{{time.name}}</p>
             </div>
           </div>
         </div>

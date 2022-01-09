@@ -117,7 +117,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
           this.instructions[x.position!-1]=x
         })
         this.dataSource1.data=this.instructions
-        
+
       }
     )
   }
@@ -143,12 +143,12 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   endTimer(){
 
   }
-  
+
   loadTime(time:number, measure:string){
     if(measure === "minutos"){
       this.timer = time * 60
     }
-    console.log(time)
+    console.log('entro')
   }
 
   ngOnInit(): void {
@@ -159,5 +159,5 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     this.fetchIngredientsRecipe();
   }
 
-  
+
 }
