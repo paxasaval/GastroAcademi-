@@ -4,6 +4,7 @@
   </div>
   <div class="container">
     <div class="left">
+      <!--Ingredients-->
       <div class="list-ingredients">
         <h2>Lista de Ingredientes</h2>
         <div class="table-ingredients mat-elevation-z8">
@@ -50,17 +51,16 @@
               <td mat-cell *matCellDef="let element"> {{element.description}} </td>
             </ng-container>
 
-        
+
             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
             aria-label="Select page of periodic elements">
-          </mat-paginator>
+          </mat-paginator> -->
 
         </div>
       </div>
-
     </div>
     <div class="line-scroll"></div>
     <!--Derecha-->
@@ -69,13 +69,13 @@
       <div class="timer">
         <h2>Cocina</h2>
         <div class="container-timer">
-          <div  class="buttons">
+          <div class="buttons">
             <button class="btn-start" color='primary' mat-raised-button (click)="cd.resume()">Iniciar</button>
             <button class="btn-end" color='primary' mat-button (click)="cd.pause()">Pausar</button>
           </div>
           <div class="timer-time">
-            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: 'm:s',demand: true }"></countdown>       
-            <p>Tiempo Restante Aprox.</p>     
+            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: 'm:s',demand: true }"></countdown>
+            <p>Tiempo Restante Aprox.</p>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
           </div>
           <!--steps-time-->
           <div class="times-container">
-            <div *ngFor="let time of times" class="times-card">
+            <div *ngFor="let time of times" (click)="loadTime(time.time!, time.medida_t!)" class="times-card">
               <span>{{time.time}}:00</span>
               <p>Tiempo de </p>
               <p>{{time.name}}</p>

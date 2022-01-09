@@ -52,7 +52,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   recipe: RecipeId={}
   times: TimeList[] = []
 
-  timer:number=900
+  timer:number=0
 
 
   ingredients: IngredientsList[] = []
@@ -143,7 +143,13 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   endTimer(){
 
   }
-
+  
+  loadTime(time:number, measure:string){
+    if(measure === "minutos"){
+      this.timer = time * 60
+    }
+    console.log(time)
+  }
 
   ngOnInit(): void {
     this.router.params.subscribe((params:  Params) => {       this.recipeId = params["id"]   });
@@ -153,4 +159,5 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     this.fetchIngredientsRecipe();
   }
 
+  
 }
