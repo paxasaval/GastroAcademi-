@@ -15,6 +15,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { CountdownModule} from 'ngx-countdown';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     IvyCarouselModule,
     MatCheckboxModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CountdownModule,
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +54,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     IvyCarouselModule,
     MatCheckboxModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CountdownModule
   ]
 })
 export class MaterialModule { }

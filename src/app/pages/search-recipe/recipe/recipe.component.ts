@@ -39,6 +39,7 @@ export interface RecipeInfo{
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.sass']
 })
+
 export class RecipeComponent implements OnInit ,AfterViewInit{
   recipeId = ""
   tecnicas = [
@@ -51,7 +52,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   recipe: RecipeId={}
   times: TimeList[] = []
 
-  timer:number=0
+  timer:number=900
 
 
   ingredients: IngredientsList[] = []
@@ -60,6 +61,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   dataSource=new MatTableDataSource<any>([])
   dataSource1=new MatTableDataSource<any>([])
   displayedColumns: string[] = ['ingrediente', 'cantidad', 'medida'];
+  displayedColumns2: string[] = ['ingrediente', 'cantidad'];
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
@@ -115,6 +117,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
           this.instructions[x.position!-1]=x
         })
         this.dataSource1.data=this.instructions
+        
       }
     )
   }

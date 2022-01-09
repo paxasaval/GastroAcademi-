@@ -25,6 +25,7 @@
     "firebase": "^9.6.1",
     "jquery": "^3.6.0",
     "ng-multiselect-dropdown": "^0.3.7",
+    "ngx-countdown": "^13.0.0",
     "rxfire": "^6.0.0",
     "rxjs": "~7.4.0",
     "slick-carousel": "^1.8.1",
