@@ -58,6 +58,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
 
   instructions: InstructionsList [] = []
   dataSource=new MatTableDataSource<any>([])
+  dataSource1=new MatTableDataSource<any>([])
   displayedColumns: string[] = ['ingrediente', 'cantidad', 'medida'];
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -113,6 +114,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
         aux.forEach(x=>{
           this.instructions[x.position!-1]=x
         })
+        this.dataSource1.data=this.instructions
       }
     )
   }
