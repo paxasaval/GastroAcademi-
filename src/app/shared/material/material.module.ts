@@ -13,6 +13,8 @@ import {HttpClientModule } from "@angular/common/http";
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ReactiveFormsModule,
     HttpClientModule,
     IvyCarouselModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -46,7 +50,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ReactiveFormsModule,
     HttpClientModule,
     IvyCarouselModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

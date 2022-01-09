@@ -1,188 +1,165 @@
 .main
-  min-width: 80vw
-  min-height: 100vh
+  width: 85%
+  background-color: #F9F9FA
+  padding-left: 15vh
+  height: 100%
+.header
+  padding-top: 2.5vh
+  width: 100%
+  height: 10%
   display: flex
-  justify-content: start
   align-items: center
-  flex-direction: column
-
-.title
-  margin-top: 2.5em
-  width: 85%
-  text-align: center
-  background-color: var(--warn)
-  border-radius: 16px
-  padding-top: 0.5rem
-
-.main-container
+  h1
+    font-size: 2.5vw
+    font-weight: 500
+.container
+  width: 100%
   display: flex
-  margin: 2em
-  justify-content: space-between
-  height: auto
-  width: 85%
+  position: relative
+.left
+  width: 55%
+  height: 92vh
+  overflow-y: scroll
+  scrollbar-width: thin
+  scrollbar-color: #e58846 white
+  position: relative
+  z-index: 2
+  padding-right: 5vh
+  h2
+    font-weight: 500
+.left::-webkit-scrollbar
+  width:10px
+.left::-webkit-scrollbar-track
+    background: white
+.left::-webkit-scrollbar-thumb
 
-.left-container
-  width: 48%
-  background-color: var(--primary)
+    background-color: #e58846
+    border-radius: 15px
+.left::-webkit-scrollbar-track
+  background-color: rgba(255, 255, 255, 0)
+  -webkit-border-radius: 1px
+.left::-webkit-scrollbar-thumb:vertical
+  -webkit-width:1
+.line-scroll
+/**   position: absolute
+  bottom: 10%
+  left: 54.45%
+  height: 96vh
+  width: 1px
+  background-color: black **/
+.table-ingredients
+  margin-bottom: 5vh
+.mat-column-ingrediente
+  width: 80%
+.mat-column-cantidad
+  width: 10%
+.mat-column-medida
+  width: 10%
+.right
+  padding-left: 2.5vw
+  padding-right: 2.5vw
+.timer
+  h2
+    font-weight: 500
+.container-timer
+  display: flex
+.buttons
+  width: 25%
+  height: 20vh
+  display: flex
+  flex-direction: column
+  padding-right: 1rem
+.btn-start
+  margin-bottom: 1rem
+  height: 100%
+  background-color: #F96A04
+  color: white
   border-radius: 11px
-  padding-top: 2.5em
-
-.headers
-  display: flex
-  text-align: center
+.btn-end
+  height: 100%
+  border: 2px solid #F96A04
+  color: #F96A04
+  border-radius: 11px
+.timer-time
   width: 100%
-  height: 2.5rem
-
-.title-ingredientes
-  width: 69%
-
-  margin: 0 0.75rem
-  padding: 0.25rem 0.5rem
-  text-align: left
-
-.title-cantidad
-    width: 14%
-
-    margin-right:0.75rem
-    padding: 0.25rem 0.5rem
-
-.title-medida
-    width: 14%
-
-    margin-right:0.75rem
-    padding: 0.25rem 0.5rem
-
-
-.ingrediente-list
+  height: 20vh
   display: flex
-  flex-direction: column
-  width: 100%
-
-.ingrediente
-  display: flex
-  width: 100%
-  justify-content: space-between
-  margin-top: 2%
-  p
-    width: 69%
-    background: #FFFFFF
-    border-radius: 6px
-    height: 1.5rem
-    margin: 0 0.75rem
-    padding: 0.25rem 0.5rem
-  span
-    width: 14%
-    text-align: center
-    background: #FFFFFF
-    border-radius: 6px
-    height: 1.5rem
-    margin-right:0.75rem
-    padding: 0.25rem 0.5rem
-.headers-intructions
-  display: flex
-  justify-content: center
-  text-align: center
+  justify-items: center
   align-items: center
-.title-intructions
   text-align: center
-  width: 100%
-  margin: 1rem 0
-  padding: 0.25rem 0.5rem
-.instructions-list
-  display: flex
   flex-direction: column
-  width: 100%
-  margin-bottom: 0.5rem
+  background: #FFFFFF
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: 16px
 
-.instruction
-  display: flex
-  width: 100%
-  margin-top: 1%
-  margin-bottom: 1%
-  p
-    width: 99%
-    background: #FFFFFF
-    text-align: justify
-    border-radius: 6px
-    margin: 0 0.75rem
-    padding: 0.25rem 0.5rem
   span
-    width: 5%
+    padding: 1rem
+    padding-bottom: 0
+    height: 60%
+    font-size: 8vh
+    color: #F96A04
+    line-height: 0rem
     display: flex
     justify-content: center
     text-align: center
     align-items: center
-    background: #FFFFFF
-    border-radius: 6px
-    margin-left: 0.75rem
-    padding: 0.25rem 0.5rem
-
-.tecnicas-carrousel
-  display: flex
-  flex-direction: column
-  width: 90%
-  text-align: center
-  justify-content: center
-  margin-top: 1.5rem
-  margin-bottom: 2rem
-  margin-left: 5%
-.right-container
-  width: 50%
-  z-index: 0
-  background-color: var(--accent)
-  border-radius: 16px
-  display: flex
-  flex-direction: column
-  justify-content: space-evenly
-.carrousel-time
-  height: 20%
-  width: 100%
-
-  display: flex
-  justify-content: center
-  align-items: center
-
-
-.carrousel
-  display: flex
-  justify-content: center
-  align-items: center
-  width: 100%
-
-.recipe-img
-  height: 75%
-  display: flex
-  justify-content: center
-  align-items: center
-  padding: 0.5rem
-  img
-    height: auto
-    width: 100%
-    margin-top: 5%
-    border-top-left-radius: 16px
-    border-top-right-radius: 16px
-
-
-.carrousel
-  display: flex
-  justify-content: center
-  margin-right: 1.5rem
-  width: 100%
-.cell-time
-  background: #EDEDED
-  border-radius: 16px
-  text-align: center
-  display: flex
-  flex-direction: column
-  justify-content: space-evenly
-  align-items: center
-  padding-top: 0.25rem
   p
+    font-size: 2vh
+    font-weight: 500
+    height: 20%
+    display: flex
+    justify-content: center
     text-align: center
-    font-size: 1rem
-  span
-    text-align: center
-    font-size: 3rem
-    line-height: 2.5rem
+    align-items: start
+.steps-time
 
+.steps-time-container
+  display: flex
+  width: 100%
+
+.img-notes
+  padding-right: 2.5vw
+  width: 75%
+  .img
+    width:100%
+    img
+      width: 100%
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+      border-radius: 10px
+.times-container
+  height: 50vh
+  width: 25%
+  overflow-y: hidden
+  overflow-x: hidden
+
+.times-card
+  height: 12vh
+  width: 8vw
+  background: #FFFFFF
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: 16px
+  margin-bottom: 2vh
+  display: flex
+  flex-direction: column
+  text-align: center
+  justify-content: center
+  padding: 0.25rem
+  span
+    height: 75%
+    font-size: 3vh
+    color: #F96A04
+    display: flex
+    justify-content: center
+    align-items: center
+  p
+    font-size: 2vh
+    height: 5%
+    display: flex
+    justify-content: center
+    align-items: start
+    line-height: 0
+.notes
+  margin-top:1rem
+  p
+    font-style: italic
 

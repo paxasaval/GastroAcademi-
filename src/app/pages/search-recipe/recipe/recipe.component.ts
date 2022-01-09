@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { RecipeId } from 'src/app/models/recipe';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Instructions } from 'src/app/models/instructions';
+import { Instructions, InstructionsId } from 'src/app/models/instructions';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
 import { InstructionsService } from 'src/app/service/recipe/instructions.service';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 import { TimesService } from 'src/app/service/recipe/times.service';
+import { Ingredients, IngredientsId } from 'src/app/models/ingredients';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface TimeList{
   name?: string;
@@ -28,12 +32,14 @@ export interface RecipeInfo{
   image?: string
 }
 
+
+
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.sass']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit ,AfterViewInit{
   recipeId = ""
   tecnicas = [
     { path: '../../../../assets/image 10.png' },
@@ -42,12 +48,24 @@ export class RecipeComponent implements OnInit {
   ]
 
   recipes: RecipeInfo[] = []
-
+  recipe: RecipeId={}
   times: TimeList[] = []
+
+  timer:number=0
+
 
   ingredients: IngredientsList[] = []
 
   instructions: InstructionsList [] = []
+  dataSource=new MatTableDataSource<any>([])
+  dataSource1=new MatTableDataSource<any>([])
+  displayedColumns: string[] = ['ingrediente', 'cantidad', 'medida'];
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator!;
+  }
 
   constructor(
     private recipeService: RecipeService,
@@ -60,12 +78,7 @@ export class RecipeComponent implements OnInit {
   fetchRecipe(){
     this.recipeService.getRecipeById(this.recipeId).subscribe(
       result => {
-        this.recipes = []      
-          var auxRecipe: RecipeInfo = {}
-          auxRecipe.name = result.name
-          auxRecipe.image = result.image
-          this.recipes.push(auxRecipe)
-          console.log(auxRecipe)
+        this.recipe=result
       }
     )
   }
@@ -80,8 +93,9 @@ export class RecipeComponent implements OnInit {
           auxIngredients.quantity = x.quantity
           auxIngredients.measure = x.measure
           this.ingredients.push(auxIngredients)
-          
+
         })
+        this.dataSource.data=this.ingredients
       }
     )
   }
@@ -100,6 +114,7 @@ export class RecipeComponent implements OnInit {
         aux.forEach(x=>{
           this.instructions[x.position!-1]=x
         })
+        this.dataSource1.data=this.instructions
       }
     )
   }
@@ -117,6 +132,13 @@ export class RecipeComponent implements OnInit {
         })
       }
     )
+  }
+
+  startTimer(){
+
+  }
+  endTimer(){
+
   }
 
 
