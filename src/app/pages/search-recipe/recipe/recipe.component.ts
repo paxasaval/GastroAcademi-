@@ -61,7 +61,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   dataSource=new MatTableDataSource<any>([])
   dataSource1=new MatTableDataSource<any>([])
   displayedColumns: string[] = ['ingrediente', 'cantidad', 'medida'];
-  displayedColumns2: string[] = ['ingrediente', 'cantidad'];
+  displayedColumns2: string[] = ['posicion', 'descripcion'];
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
