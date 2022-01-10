@@ -74,7 +74,7 @@
             <button class="btn-end" color='primary' mat-button (click)="cd.pause()">Pausar</button>
           </div>
           <div class="timer-time">
-            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: 'm:s',demand: true }"></countdown>
+            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: 'mm:ss',demand: true }"></countdown>
             <p>Tiempo Restante Aprox.</p>
           </div>
         </div>
