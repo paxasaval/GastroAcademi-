@@ -1,5 +1,6 @@
-<div class="img-bg">
+<div class="img-bg"> 
   <img class="background" src="../../../../assets/image 12.jpg" alt="">
+  <h1 class="title-header">Gastro Academi</h1>
 </div>
 <div class="main">
   <img class="lechuga" src="../../../../assets/image 8.png" alt="">
@@ -7,13 +8,12 @@
   <div class="main-container">
     <div class="search">
       <div class="search-input">
-        <mat-form-field appearance="standard">
-          <mat-label class="label">Buscardor(Nombre de la Receta)</mat-label>
+        <mat-form-field appearance="outline">
+          <mat-label class="label">¿Qué deseas preparar?</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
-
       <div class="filters">
         <!---->
         <form class="example-form">
