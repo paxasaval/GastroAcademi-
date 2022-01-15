@@ -1,0 +1,22 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <mat-form-field>
+    <input matInput placeholder="Email address" formControlName="email" />
+    <mat-error *ngIf="email?.errors?.['required']">
+      Correo electronico es requerido
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.['email']">
+      Profavor ingrese un correo electronico valido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" formControlName="password" />
+    <mat-error *ngIf="password?.errors?.['required']">
+      Contraseña es requerida
+    </mat-error>
+    <span><a href="http://">Olvidaste tu contraseña?</a></span>
+  </mat-form-field>
+  <div class="">
+      <button type="submit" mat-raised-button color="primary">Iniciar Sesion</button>
+  </div>
+</form>
+<button  mat-raised-button color="primary" (click)="signUp()">Registrarse</button>

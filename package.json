@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
+    "@ngneat/hot-toast": "^4.1.0",
+    "@ngneat/overview": "^3.0.0",
     "angular-responsive-carousel": "^2.1.2",
     "firebase": "^9.6.1",
     "jquery": "^3.6.0",

@@ -16,6 +16,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CountdownModule} from 'ngx-countdown';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CountdownModule} from 'ngx-countdown';
     MatTableModule,
     MatPaginatorModule,
     CountdownModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +57,8 @@ import { CountdownModule} from 'ngx-countdown';
     MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
-    CountdownModule
+    CountdownModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

@@ -8,6 +8,10 @@ const routes: Routes = [
     component: LayerComponent,
     children:[
       {
+        path:'',
+        redirectTo:'Buscar-receta'
+      },
+      {
         path: 'Topic',
         loadChildren: () => import('../../pages/main-topic/main-topic.module').then(m => m.MainTopicModule),
       },

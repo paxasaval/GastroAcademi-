@@ -1,0 +1,45 @@
+<form [formGroup]="singUpForm" (ngSubmit)="submit()">
+  <mat-form-field>
+    <input matInput placeholder="Nombres y Apellidos" formControlName="name" />
+    <mat-error *ngIf="name?.errors?.['required']">
+      Nombres y Apellidos son requeridos
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Direccion de correo electronico" formControlName="email" />
+    <mat-error *ngIf="email?.errors?.['required']">
+      Direccion de correo electronico es requirido
+    </mat-error>
+    <mat-error *ngIf="email?.errors?.['email']">
+      Porfavor, ingrese una direccion de correo electronico valida
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select formControlName='rol'>
+      <mat-option value="Usuario">Usuario</mat-option>
+      <mat-option value="Administrador">Administrador</mat-option>
+    </mat-select>
+    <mat-error *ngIf="rol?.errors?.['required']">
+      Debe selecionar un rol
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Contraseña" formControlName="password" />
+    <mat-error *ngIf="password?.errors?.['required']">
+      Contraseña es requerida
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Confirmar contraseña" formControlName="confirmPassword" />
+    <mat-error *ngIf="confirmPassword?.errors?.['required']">
+      Confirmar contraseña es requerido
+    </mat-error>
+    <mat-error *ngIf="singUpForm.errors?.['passwordsDontMatch']">
+      Las contraseñas deben coincidir
+    </mat-error>
+  </mat-form-field>
+
+  <div>
+    <button type="submit" mat-raised-button color="primary">Registrarse</button>
+  </div>
+</form>
