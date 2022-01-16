@@ -49,7 +49,7 @@ export class SingInComponent implements OnInit {
     });
   }
   signUp(){
-    this.router.navigate(['admin/login/singUp'])
+    this.router.navigate(['admin/login/signUp'])
   }
 
 }

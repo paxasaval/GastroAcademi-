@@ -18,14 +18,14 @@ const routes: Routes = [
     children:[
       {
         path:'',
-        redirectTo: 'singIn'
+        redirectTo: 'signIn'
       },
       {
-        path:'singIn',
+        path:'signIn',
         component: SingInComponent
       },
       {
-        path:'singUp',
+        path:'signUp',
         component: SingUpComponent
       }
     ]

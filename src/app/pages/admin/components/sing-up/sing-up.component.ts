@@ -64,19 +64,19 @@ export class SingUpComponent implements OnInit {
   }
 
   submit(){
-    console.log('asd')
     if(!this.singUpForm.valid){
       return;
     }
 
     const {name, rol, email, password} = this.singUpForm.value;
-    this.authService.signUp(name, email, password).pipe(
+    this.authService.signUp(name, email, password,rol).pipe(
       this.toast.observe({
         success: 'Felicidades! Se ha registrado con exito',
         loading: 'Registrando...',
         error: ({ message }) => `${message}`
       })
-    ).subscribe(()=>{
+    ).subscribe(result=>{
+      console.log(result)
       this.router.navigate([''])
     })
   }

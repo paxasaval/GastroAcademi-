@@ -32,7 +32,7 @@ export class RecipeService {
        map(a => {
          const data = a.payload.data() as RecipeId
          data.id = a.payload.id
-         console.log(data)
+         //console.log(data)
          return data
        }))
    }

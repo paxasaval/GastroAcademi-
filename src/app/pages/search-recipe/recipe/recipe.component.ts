@@ -98,6 +98,12 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
 
         })
         this.dataSource.data=this.ingredients
+      },
+      err=>{
+        console.log(err)
+      },
+      ()=>{
+        console.log('completado')
       }
     )
   }

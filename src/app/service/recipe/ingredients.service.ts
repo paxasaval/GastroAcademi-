@@ -1,3 +1,4 @@
+import { IngredientsRecipeId } from './../../models/ingredients-recipe';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -21,7 +22,7 @@ export class IngredientsService {
    getAllIngredients(){
      return this.afs.collection<Ingredients>('ingredients').snapshotChanges().pipe(
        map(actions => actions.map(a=>{
-          const data = a.payload.doc.data() as IngredientsId
+          const data = a.payload.doc.data() as IngredientsRecipeId
           data.id = a.payload.doc.id
           return data
        }))
@@ -31,7 +32,7 @@ export class IngredientsService {
    getIngredientsByRecipe(recipe: string){
     return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('recipe','==',recipe)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
-        const data = a.payload.doc.data() as IngredientsId
+        const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
         return data
       }))
@@ -41,7 +42,7 @@ export class IngredientsService {
    getIngredientsByName(name: string){
     return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('name','==',name)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
-        const data = a.payload.doc.data() as IngredientsId
+        const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
         return data
       }))
