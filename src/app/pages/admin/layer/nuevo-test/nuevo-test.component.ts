@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -8,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nuevo-test.component.sass']
 })
 export class NuevoTestComponent implements OnInit {
+
+  recipeForm = new FormGroup({
+
+  });
 
   qestions: any[] = [{}]
   tittle=''

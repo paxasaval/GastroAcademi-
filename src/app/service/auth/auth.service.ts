@@ -23,7 +23,7 @@ export class AuthService {
           newUser.name=name
           newUser.rol=rol
           newUser.uid=user.uid
-          this.userSerevice.postUser(user)
+          this.userSerevice.postUser(newUser)
         })
       ),
     );
