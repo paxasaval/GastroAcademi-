@@ -14,6 +14,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFireModule, FirebaseApp } from '@angular/fire/compat';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { CascadeMultipleComponent } from './test/cascade-multiple/cascade-multiple.component';
 
 
 
@@ -21,7 +22,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
 @NgModule({
   declarations: [
     AppComponent,
-    NavigateBarComponent
+    NavigateBarComponent,
+    CascadeMultipleComponent
   ],
   imports: [
     BrowserModule,

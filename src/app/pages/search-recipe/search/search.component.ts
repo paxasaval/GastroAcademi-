@@ -80,7 +80,9 @@ export class SearchComponent implements OnInit {
       this.options = []
       result.forEach(x=>{
         var auxIngrediente: Ingredientes ={}
-        auxIngrediente.name = x.name
+        var name = ''
+        
+        auxIngrediente.name = name
         const nuevo_ingrediente = (element:Ingredientes)=>element.name===x.name
         if(!this.options.some(nuevo_ingrediente)){
           this.options.push(auxIngrediente)

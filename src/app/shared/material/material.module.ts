@@ -17,7 +17,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CountdownModule} from 'ngx-countdown';
 import {MatSelectModule} from '@angular/material/select';
-
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 @NgModule({
   declarations: [],
@@ -39,7 +39,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     MatPaginatorModule,
     CountdownModule,
-    MatSelectModule
+    MatSelectModule,
+    NzTreeSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -58,7 +59,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     MatPaginatorModule,
     CountdownModule,
-    MatSelectModule
+    MatSelectModule,
+    NzTreeSelectModule
   ]
 })
 export class MaterialModule { }
