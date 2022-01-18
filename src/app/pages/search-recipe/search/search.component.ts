@@ -1,3 +1,4 @@
+import { CategoryService } from 'src/app/service/recipe/category.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { iif, Observable } from 'rxjs';
@@ -7,6 +8,8 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
 import { Ingredients } from 'src/app/models/ingredients';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { IngredientService } from 'src/app/service/recipe/ingredient.service';
 
 export interface Ingredientes {
   name?: string;
@@ -45,13 +48,17 @@ export class SearchComponent implements OnInit {
   filteredOptions_1?: Observable<Cooccion[]>;
   filteredOptions_2?: Observable<Conservacion[]>;
   filteredOptions_3?: Observable<Tecnicas[]>;
-
+  nodes: NzTreeNodeOptions[]=[]
   cards1?: any[]
   cards: Card[] =[]
+  value: string[] = [];
+
   constructor(iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private recipeService: RecipeService,
-    private ingredientsService: IngredientsService
+    private ingredientsService: IngredientsService,
+    private categoryService: CategoryService,
+    private ingredientService: IngredientService,
   ) {
     iconRegistry.addSvgIcon('ingredientes', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 2.svg'))
     iconRegistry.addSvgIcon('coccion', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 3.svg'))
@@ -59,7 +66,65 @@ export class SearchComponent implements OnInit {
     iconRegistry.addSvgIcon('tecnicas', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 6.svg'))
   }
 
+  async fetchNodes() {
+    this.nodes = []
+    this.categoryService.getAllCategorys().subscribe(
+      async categorys => {
+        for (const category of categorys) {
+          var auxNode: NzTreeNodeOptions = {
+            title: category.name!,
+            key: category.id
+          }
+          const ingredients = await new Promise<any[]>((resolve, reject) => {
+            this.ingredientService.getIngredientsByCategory(category.id).subscribe(
+              ingredient => {
+                var auxSubNodes: NzTreeNodeOptions[] = []
+                ingredient.forEach(x => {
+                  var auxSubNode: NzTreeNodeOptions = {
+                    title: x.name!,
+                    key: x.id!
+                  }
+                  auxSubNodes.push(auxSubNode)
+                })
+                resolve(auxSubNodes);
+              }
+            )
+          })
+          auxNode.children = ingredients
+          this.nodes.push(auxNode)
+          console.log(auxNode)
+        }
+      }
+    )
+  }
+
+  async fetchCards(ingredients: string[]) {
+    this.cards = []
+    var filterRecipe = this.cards1
+    for (const ingredient of ingredients) {
+      this.cards = []
+      console.log(filterRecipe)
+      const auxRecipe = await new Promise<any[]>((resolve, reject) => {
+        this.ingredientsService.getIngredientsByIngredient(ingredient).subscribe(
+          result => {
+            result.forEach(i => {
+              const predicade = (element: any) => element.path === i.recipe
+              if (filterRecipe!.some(predicade) && !this.cards.some(predicade)) {
+                const recipe = filterRecipe!.find(element => element.path === i.recipe)
+                this.cards.push(recipe)
+              }
+            })
+            filterRecipe = this.cards
+            resolve(filterRecipe)
+          }
+        )
+      })
+    }
+
+  }
+
   fetchRecipes(){
+
     this.recipeService.getAllrecipes().subscribe(
       result=>{
         console.log(result)
@@ -71,6 +136,7 @@ export class SearchComponent implements OnInit {
           auxRecipe.path=x.id
           this.cards.push(auxRecipe)
         })
+        this.cards1=this.cards
       }
     )
   }
@@ -81,7 +147,7 @@ export class SearchComponent implements OnInit {
       result.forEach(x=>{
         var auxIngrediente: Ingredientes ={}
         var name = ''
-        
+
         auxIngrediente.name = name
         const nuevo_ingrediente = (element:Ingredientes)=>element.name===x.name
         if(!this.options.some(nuevo_ingrediente)){
@@ -97,7 +163,14 @@ export class SearchComponent implements OnInit {
     })
   }
 
+  onChange($event: string[]): void {
+    if ($event.length > 0) {
+      this.fetchCards($event)
+    } else {
+      this.cards = this.cards1!
+    }
 
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.cards1 = this.cards.filter(card => card.name!.toLowerCase().includes(filterValue))
@@ -107,6 +180,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.fetchIngredients()
     this.fetchRecipes()
+    this.fetchNodes()
+
     this.filteredOptions_1 = this.myControl_1.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.name)),
@@ -122,7 +197,7 @@ export class SearchComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filter_3(name) : this.options_3.slice())),
     );
-    this.cards1 = this.cards
+
   }
 
   displayFn(user: Ingredientes): string {

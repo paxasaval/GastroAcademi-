@@ -5,12 +5,12 @@ import { Observable, map, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/service/recipe/category.service';
 import { IngredientService } from 'src/app/service/recipe/ingredient.service';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
-import {NzTreeNodeOptions } from 'ng-zorro-antd/tree'
-export interface Nodes{
-  title:any,
-  key?:any,
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree'
+export interface Nodes {
+  title: any,
+  key?: any,
   children?: any[]
-  isLeaf?:any
+  isLeaf?: any
 }
 
 @Component({
@@ -19,10 +19,10 @@ export interface Nodes{
   styleUrls: ['./cascade-multiple.component.sass']
 })
 export class CascadeMultipleComponent implements OnInit {
-  recipes: any[]=[]
-  recipesAux:any[]=[]
+  recipes: any[] = []
+  recipesAux: any[] = []
   value: string[] = [];
-  nodes:NzTreeNodeOptions[] = [
+  nodes: NzTreeNodeOptions[] = [
     {
       title: 'parent 1',
       key: '100',
@@ -44,25 +44,30 @@ export class CascadeMultipleComponent implements OnInit {
     }
   ];
 
-  constructor(private categoryService: CategoryService, private ingredientService: IngredientService, private ingredientsService: IngredientsService, private recipeService: RecipeService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private ingredientService: IngredientService,
+    private ingredientsService: IngredientsService,
+    private recipeService: RecipeService
+    ) { }
 
-  async fetchNodes(){
-    this.nodes=[]
+  async fetchNodes() {
+    this.nodes = []
     this.categoryService.getAllCategorys().subscribe(
-     async categorys=>{
-        for(const category of categorys){
-          var auxNode: NzTreeNodeOptions={
-            title:category.name!,
-            key:category.id
+      async categorys => {
+        for (const category of categorys) {
+          var auxNode: NzTreeNodeOptions = {
+            title: category.name!,
+            key: category.id
           }
-          const ingredients = await new Promise<any[]>((resolve,reject)=>{
+          const ingredients = await new Promise<any[]>((resolve, reject) => {
             this.ingredientService.getIngredientsByCategory(category.id).subscribe(
-              ingredient=>{
-                var auxSubNodes:NzTreeNodeOptions[]=[]
-                ingredient.forEach(x=>{
-                  var auxSubNode: NzTreeNodeOptions={
-                    title:x.name!,
-                    key:x.id!
+              ingredient => {
+                var auxSubNodes: NzTreeNodeOptions[] = []
+                ingredient.forEach(x => {
+                  var auxSubNode: NzTreeNodeOptions = {
+                    title: x.name!,
+                    key: x.id!
                   }
                   auxSubNodes.push(auxSubNode)
                 })
@@ -70,7 +75,7 @@ export class CascadeMultipleComponent implements OnInit {
               }
             )
           })
-          auxNode.children=ingredients
+          auxNode.children = ingredients
           this.nodes.push(auxNode)
           console.log(auxNode)
         }
@@ -78,34 +83,45 @@ export class CascadeMultipleComponent implements OnInit {
     )
   }
 
-  fetchRecipes(ingredients: string[]){
-    this.recipes=[]
-    ingredients.forEach(x=>{
-      this.ingredientsService.getIngredientsByIngredient(x).subscribe(
-        result=>{
-          console.log(result)
-          result.forEach(i=>{
-            const predicade = (element:any)=> element.id===i.recipe
-            console.log(i.recipe)
-            if(!this.recipes.some(predicade)){
-              const recipe = this.recipesAux.find(element=>element.id===i.recipe)
-              this.recipes.push(recipe)
-            }
-          })
-        }
-      )
-    })
+  async fetchRecipes(ingredients: string[]) {
+    this.recipes = []
+    var filterRecipe = this.recipesAux
+    for (const ingredient of ingredients) {
+      this.recipes = []
+      console.log(filterRecipe)
+      const auxRecipe = await new Promise<any[]>((resolve, reject) => {
+        this.ingredientsService.getIngredientsByIngredient(ingredient).subscribe(
+          result => {
+            result.forEach(i => {
+              const predicade = (element: any) => element.id === i.recipe
+              if (filterRecipe.some(predicade) && !this.recipes.some(predicade)) {
+                const recipe = filterRecipe.find(element => element.id === i.recipe)
+                this.recipes.push(recipe)
+              }
+            })
+            filterRecipe = this.recipes
+            resolve(filterRecipe)
+          }
+        )
+      })
+    }
+
   }
 
   onChange($event: string[]): void {
-    this.fetchRecipes($event)
+    if ($event.length > 0) {
+      this.fetchRecipes($event)
+    } else {
+      this.recipes = this.recipesAux
+    }
+
   }
 
   ngOnInit(): void {
     this.recipeService.getAllrecipes().subscribe(
-      result=>{
-        this.recipesAux=result
-        this.recipes=this.recipesAux
+      result => {
+        this.recipesAux = result
+        this.recipes = this.recipesAux
       }
     )
     this.fetchNodes()

@@ -50,7 +50,7 @@ export class IngredientsService {
    }
 
    getIngredientsByIngredient(ingredient:string){
-    return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('ingredients','==',ingredient)).snapshotChanges().pipe(
+    return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('ingredient','==',ingredient)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
         const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
