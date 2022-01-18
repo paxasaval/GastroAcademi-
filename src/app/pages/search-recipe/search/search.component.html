@@ -16,26 +16,28 @@
       </div>
       <div class="filters">
         <!---->
-        <nz-tree-select
-          style="width: 250px"
-          nzPlaceHolder="Please select"
-          [(ngModel)]="value"
-          [nzMaxTagCount]="3"
-          [nzMaxTagPlaceholder]="omittedPlaceHolder"
-          [nzNodes]="nodes"
-          [nzDefaultExpandAll]="true"
-          [nzAllowClear]="false"
-          [nzMultiple]="true"
-          (ngModelChange)="onChange($event)"
-></nz-tree-select>
-<ng-template #omittedPlaceHolder let-omittedValues>and {{ omittedValues.length }} more...</ng-template>
+        <nz-tree-select style="width: 250px"
+        nzPlaceHolder="Ingredientes..."
+        [(ngModel)]="value"
+        [nzShowSearch]='true'
+        [nzMaxTagCount]="10"
+        [nzVirtualItemSize]='15'
+        [nzMaxTagPlaceholder]="omittedPlaceHolder"
+        [nzNodes]="nodes" [nzDefaultExpandAll]="true"
+        [nzAllowClear]="false"
+        [nzMultiple]="true"
+        (ngModelChange)="onChange($event)">
+      </nz-tree-select>
+
+        <ng-template #omittedPlaceHolder let-omittedValues>and {{ omittedValues.length }} more...</ng-template>
+
         <!---->
 
       </div>
     </div>
     <div class="grid-recipe">
       <div *ngFor="let card of cards">
-        <app-recipe-card  [card]='card'></app-recipe-card>
+        <app-recipe-card [card]='card'></app-recipe-card>
       </div>
     </div>
   </div>

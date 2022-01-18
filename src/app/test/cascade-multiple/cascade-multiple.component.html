@@ -1,5 +1,4 @@
 <nz-tree-select
-      style="width: 250px"
       nzPlaceHolder="Please select"
       [(ngModel)]="value"
       [nzMaxTagCount]="3"
@@ -9,6 +8,7 @@
       [nzAllowClear]="false"
       [nzMultiple]="true"
       (ngModelChange)="onChange($event)"
-></nz-tree-select>
+>
+</nz-tree-select>
 <ng-template #omittedPlaceHolder let-omittedValues>and {{ omittedValues.length }} more...</ng-template>
 <p *ngFor="let recipe of recipes">{{recipe.name}}</p>
