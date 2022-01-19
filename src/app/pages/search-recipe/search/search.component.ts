@@ -53,7 +53,8 @@ export class SearchComponent implements OnInit {
   cards: Card[] =[]
   value: string[] = [];
 
-  constructor(iconRegistry: MatIconRegistry,
+  constructor(
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private recipeService: RecipeService,
     private ingredientsService: IngredientsService,
