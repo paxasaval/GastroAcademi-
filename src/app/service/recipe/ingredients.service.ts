@@ -1,4 +1,4 @@
-import { IngredientsRecipeId } from './../../models/ingredients-recipe';
+import { IngredientsRecipeId, IngredientsRecipe } from './../../models/ingredients-recipe';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
@@ -15,12 +15,12 @@ export class IngredientsService {
     private afs: AngularFirestore,
     private storage: AngularFirestore
   ) {
-    this.ingredientsCollection = afs.collection<Ingredients>('ingredients');
+    this.ingredientsCollection = afs.collection<Ingredients>('ingredientsRecipe');
     this.ingredients_s = this.ingredientsCollection.valueChanges();
    }
 
    getAllIngredients(){
-     return this.afs.collection<Ingredients>('ingredients').snapshotChanges().pipe(
+     return this.afs.collection<IngredientsRecipe>('ingredientsRecipe').snapshotChanges().pipe(
        map(actions => actions.map(a=>{
           const data = a.payload.doc.data() as IngredientsRecipeId
           data.id = a.payload.doc.id
@@ -30,7 +30,7 @@ export class IngredientsService {
    }
 
    getIngredientsByRecipe(recipe: string){
-    return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('recipe','==',recipe)).snapshotChanges().pipe(
+    return this.afs.collection<IngredientsRecipe>('ingredientsRecipe', ref=>ref.where('recipe','==',recipe)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
         const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
@@ -40,7 +40,7 @@ export class IngredientsService {
    }
 
    getIngredientsByName(name: string){
-    return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('name','==',name)).snapshotChanges().pipe(
+    return this.afs.collection<IngredientsRecipe>('ingredientsRecipe', ref=>ref.where('name','==',name)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
         const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
@@ -50,13 +50,17 @@ export class IngredientsService {
    }
 
    getIngredientsByIngredient(ingredient:string){
-    return this.afs.collection<Ingredients>('ingredients', ref=>ref.where('ingredient','==',ingredient)).snapshotChanges().pipe(
+    return this.afs.collection<IngredientsRecipe>('ingredientsRecipe', ref=>ref.where('ingredient','==',ingredient)).snapshotChanges().pipe(
       map(actions => actions.map(a=>{
         const data = a.payload.doc.data() as IngredientsRecipeId
         data.id = a.payload.doc.id
         return data
       }))
     )
+   }
+
+   postIngredients(ingredientRecipe: IngredientsRecipe){
+     return this.afs.collection<IngredientsRecipe>('ingredientsRecipe').add(ingredientRecipe)
    }
 
   }

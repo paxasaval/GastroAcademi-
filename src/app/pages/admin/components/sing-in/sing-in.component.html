@@ -1,7 +1,9 @@
+
 <form class="frm-sing-in" [formGroup]="loginForm" (ngSubmit)="submit()">
   <label for="">Correo Electrónico:</label>
   <mat-form-field appearance="outline">
     <input matInput  formControlName="email" />
+
     <mat-error *ngIf="email?.errors?.['required']">
       Correo electrónico es requerido
     </mat-error>

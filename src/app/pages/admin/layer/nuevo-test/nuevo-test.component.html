@@ -1,3 +1,107 @@
-<form>
-
+<form [formGroup]="recipeForm" (ngSubmit)="submit()">
+  <section>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="name?.errors?.['required']">
+        Nombre de la receta es requerido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Porciones</mat-label>
+      <input matInput formControlName="portions" />
+      <mat-error *ngIf="portions?.errors?.['required']">
+        Porciones de la receta es requerido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="portions?.errors?.['required']">
+        Tipo de la receta es requerido
+      </mat-error>
+    </mat-form-field>
+    <button type="button" mat-raised-button (click)="fileInput.click()">Añadir imagen</button>
+    <input formControlName="image" accept=".jpeg,.jpg,.png" hidden (change)="onFileSelected($event)" #fileInput
+      type="file" id="file">
+    <mat-error *ngIf="image?.errors?.['required']; else elseBlock">
+      imagen de la receta es requerido
+    </mat-error>
+    <ng-template #elseBlock>{{img.name}}</ng-template>
+    <mat-form-field appearance="outline">
+      <mat-label>Dificultad</mat-label>
+      <mat-select formControlName="dificulty">
+        <mat-option value="Facil">Facil</mat-option>
+        <mat-option value="Medio">Medio</mat-option>
+        <mat-option value="Dificil">Dificil</mat-option>
+      </mat-select>
+      <mat-error *ngIf="dificulty?.errors?.['required']">
+        Dificultad de la receta es requerida
+      </mat-error>
+    </mat-form-field>
+  </section>
 </form>
+<section>
+  <button mat-raised-button (click)="addIngredient()">Añadir Ingrediente</button>
+  <button mat-raised-button (click)="openDialog()">Crear Ingrediente</button>
+  <div *ngFor="let ingredient of ingredients">
+    <mat-form-field appearance="outline">
+      <mat-label>Ingrediente</mat-label>
+      <mat-select [(ngModel)]="ingredient.ingredient">
+        <mat-option *ngFor="let ingre of ingredientsCatalog" [value]="ingre">{{ingre.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Alias(Optional)</mat-label>
+      <input matInput type="text" [(ngModel)]="ingredient.alias" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" [(ngModel)]="ingredient.quantity" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Medida</mat-label>
+      <input matInput [(ngModel)]="ingredient.measure" />
+    </mat-form-field>
+    <div>p:{{ingredient.ingredient}},{{ingredient.quantity}},{{ingredient.measure}}</div>
+  </div>
+</section>
+<section>
+  <button mat-raised-button (click)="addInstruction()">Añadir Instruccion</button>
+  <div *ngFor="let instruction of instructions">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Instruccion</mat-label>
+      <span matPrefix>{{instruction.position}}</span>
+      <textarea matInput [(ngModel)]="instruction.description"></textarea>
+    </mat-form-field>
+    <div>p:{{instruction.position}},{{instruction.description}}</div>
+  </div>
+</section>
+<section>
+  <button mat-raised-button (click)="addTimes()">Añadir Tiempo</button>
+  <div *ngFor="let time of times">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="time.name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Medida</mat-label>
+      <mat-select [(ngModel)]="time.measure">
+        <mat-option value="Segundos">Segundos</mat-option>
+        <mat-option value="Minutos">Minutos</mat-option>
+        <mat-option value="Horas">Horas</mat-option>
+        <mat-option value="Dias">Dias</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Total</mat-label>
+      <input matInput type="number" [(ngModel)]="time.total"/>
+    </mat-form-field>
+    <div>p:{{time.name}},{{time.measure}},{{time.total}}</div>
+  </div>
+</section>
+<button mat-raised-button (click)="submit()">Crear Receta</button>

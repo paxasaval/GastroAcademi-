@@ -141,28 +141,6 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  fetchIngredients(){
-    this.ingredientsService.getAllIngredients().subscribe(result=>{
-      this.options = []
-      result.forEach(x=>{
-        var auxIngrediente: Ingredientes ={}
-        var name = ''
-
-        auxIngrediente.name = name
-        const nuevo_ingrediente = (element:Ingredientes)=>element.name===x.name
-        if(!this.options.some(nuevo_ingrediente)){
-          this.options.push(auxIngrediente)
-          console.log(auxIngrediente)
-        }
-      })
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => (typeof value === 'string' ? value : value.name)),
-        map(name => (name ? this._filter(name) : this.options.slice())),
-      );
-    })
-  }
-
   onChange($event: string[]): void {
     if ($event.length > 0) {
       this.fetchCards($event)
@@ -178,7 +156,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchIngredients()
     this.fetchRecipes()
     this.fetchNodes()
 

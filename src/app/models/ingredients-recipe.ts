@@ -1,6 +1,9 @@
+import { IngredientsId } from 'src/app/models/ingredients';
+import { Ingredients } from "./ingredients";
+
 export interface IngredientsRecipe{
-  ingredient?: string,
-  name?:string,
+  ingredient?: string|IngredientsId,
+  alias?:string,
   recipe?:string,
   measure?: string,
   quantity?: number,
