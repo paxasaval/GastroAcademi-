@@ -11,6 +11,7 @@ import { LoginComponent } from './layer/login/login.component';
 import { LayerComponent } from './layer/layer.component';
 import { SingInComponent } from './components/sing-in/sing-in.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
+import { NewIngredientComponent } from './components/new-ingredient/new-ingredient.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SingUpComponent } from './components/sing-up/sing-up.component';
     LoginComponent,
     LayerComponent,
     SingInComponent,
-    SingUpComponent
+    SingUpComponent,
+    NewIngredientComponent
   ],
   imports: [
     CommonModule,

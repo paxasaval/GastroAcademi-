@@ -31,6 +31,10 @@ const routes: Routes = [
     ]
   },
   {
+    path:'newRecipe',
+    component: NuevoTestComponent
+  },
+  {
     path:"**",
     redirectTo: 'login'
   }

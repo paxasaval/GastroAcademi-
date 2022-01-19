@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" (ngSubmit)="submit()">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <input matInput placeholder="Email address" formControlName="email" />
     <mat-error *ngIf="email?.errors?.['required']">
       Correo electronico es requerido

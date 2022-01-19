@@ -20,6 +20,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [],
   imports: [
@@ -43,7 +44,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     MatSelectModule,
     NzTreeSelectModule,
     NzSelectModule,
-    NzTagModule
+    NzTagModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +67,8 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     MatSelectModule,
     NzTreeSelectModule,
     NzSelectModule,
-    NzTagModule
+    NzTagModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

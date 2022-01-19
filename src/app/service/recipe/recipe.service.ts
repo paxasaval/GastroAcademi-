@@ -36,4 +36,8 @@ export class RecipeService {
          return data
        }))
    }
+
+   postRecipe(recipe: Recipe){
+     return this.afs.collection<Recipe>('recipe').add(recipe)
+   }
 }

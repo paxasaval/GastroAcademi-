@@ -38,4 +38,8 @@ export class IngredientService {
     )
    }
 
+   postIngredient(ingredient: Ingredients){
+     return this.afs.collection<Ingredients>('ingredient').add(ingredient)
+   }
+
 }

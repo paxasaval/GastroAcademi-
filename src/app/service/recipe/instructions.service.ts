@@ -39,5 +39,9 @@ export class InstructionsService {
     )
   }
 
+  postInstruction(instruction: Instructions){
+    return this.afs.collection<Instructions>('instructions').add(instruction)
+  }
+
 
 }
