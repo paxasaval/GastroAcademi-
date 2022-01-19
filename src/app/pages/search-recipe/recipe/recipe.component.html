@@ -87,7 +87,6 @@
           <div class="times-container">
             <div *ngFor="let time of times" (click)="loadTime(time.time!, time.medida_t!)" class="times-card">
               <span>{{time.time}}:00</span>
-              <p>Tiempo de </p>
               <p>{{time.name}}</p>
             </div>
           </div>
