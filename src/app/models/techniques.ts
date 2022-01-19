@@ -2,5 +2,5 @@
 export interface Techniques{
   name?: string,
   type?: string,
-  resources?: string
+  resource?: string
 }export interface TechniquesId extends Techniques{id:string}

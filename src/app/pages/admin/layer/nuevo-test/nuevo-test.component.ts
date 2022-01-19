@@ -1,3 +1,7 @@
+import { NewTechniqueComponent } from './../../components/new-technique/new-technique.component';
+import { TechniquesService } from './../../../../service/recipe/techniques.service';
+import { TechniquesRecipeService } from './../../../../service/recipe/techniques-recipe.service';
+import { TechniquesRecipe } from './../../../../models/techniques-recipe';
 import { startWith } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TimesService } from 'src/app/service/recipe/times.service';
@@ -30,7 +34,9 @@ export class NuevoTestComponent implements OnInit {
   img?:File
   types:any[]=[]
   ingredientsCatalog:any[]=[]
+  techniquesCatalog:any[]=[]
 
+  techniques:TechniquesRecipe[]=[]
   ingredients:IngredientsRecipe[] = []
   instructions:Instructions[] = []
   times:Times[] = []
@@ -65,6 +71,8 @@ export class NuevoTestComponent implements OnInit {
     private dialog: MatDialog,
     private recipeService: RecipeService,
     private toast: HotToastService,
+    private techniquesRecipeService: TechniquesRecipeService,
+    private techniquesService:TechniquesService
   ) {
     iconRegistry.addSvgIcon('ingredientes', sanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/image 2.svg'))
    }
@@ -79,6 +87,11 @@ export class NuevoTestComponent implements OnInit {
     var pos = this.instructions.length+1
     otherInstruction.position=pos
     this.instructions.push(otherInstruction)
+  }
+
+  addTechnique(){
+    var otherTechnique: TechniquesRecipe = {}
+    this.techniques.push(otherTechnique)
   }
 
   addTimes(){
@@ -98,6 +111,14 @@ export class NuevoTestComponent implements OnInit {
     this.ingredientService.getAllIingredient().subscribe(
       result=>{
         this.ingredientsCatalog=result
+      }
+    )
+  }
+
+  fetchTechniqueCatalog(){
+    this.techniquesService.getAllTechniques().subscribe(
+      result=>{
+        this.techniquesCatalog=result
       }
     )
   }
@@ -130,6 +151,10 @@ export class NuevoTestComponent implements OnInit {
                   inst.recipe=result.id
                   this.instructionsService.postInstruction(inst)
                 })
+                this.techniques.forEach(technique=>{
+                  technique.recipe=result.id
+                  this.techniquesRecipeService.postTechniquesRecipe(technique)
+                })
                 this.times.forEach(async time=>{
                   time.recipe=result.id
                   if(this.times.indexOf(time)===this.times.length-1){
@@ -157,9 +182,19 @@ export class NuevoTestComponent implements OnInit {
 
   }
 
-  openDialog(): void {
+  openNewIngredient(): void {
     const dialogRef = this.dialog.open(NewIngredientComponent, {
       width: '450px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openNewTechnique(): void {
+    const dialogRef = this.dialog.open(NewTechniqueComponent, {
+      width: '450px',
+      height: '550px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -174,6 +209,7 @@ export class NuevoTestComponent implements OnInit {
   ngOnInit(): void {
     this.fetchTypes()
     this.fetchIngredientsCatalog()
+    this.fetchTechniqueCatalog()
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.name)),

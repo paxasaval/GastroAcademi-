@@ -1,0 +1,37 @@
+<form [formGroup]="newTechniqueForm" (ngSubmit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="Enlace">Enlace/Link</mat-option>
+      <mat-option value="Archivo">Archivo/File</mat-option>
+    </mat-select>
+    <mat-error *ngIf="type?.errors?.['required']">
+      Tipo del Recurso es requerido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error *ngIf="name?.errors?.['required']">
+      Nombre del Recurso es requerido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field *ngIf="type!.value==='Enlace'" appearance="outline">
+    <mat-label>Enlace/link</mat-label>
+    <input matInput formControlName="resource" />
+    <mat-error *ngIf="resource?.errors?.['required']">
+      Enlace/Link del Recurso es requerido
+    </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="type!.value==='Archivo'" appearance="outline">
+    <button type="button" mat-raised-button (click)="fileInput.click()">Añadir Archivo</button>
+    <input formControlName="resource" hidden (change)="onFileSelected($event)" #fileInput
+      type="file" id="file">
+    <mat-error *ngIf="resource?.errors?.['required']">
+      Archivo del recurso es requerido
+    </mat-error>
+  </div>
+
+  <button type="submit" mat-raised-button color="primary">Crear Ingrediente</button>
+</form>
