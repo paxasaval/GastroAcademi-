@@ -1,3 +1,5 @@
+import { startWith } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 import { TimesService } from 'src/app/service/recipe/times.service';
 import { InstructionsService } from './../../../../service/recipe/instructions.service';
 import { Recipe } from 'src/app/models/recipe';
@@ -14,10 +16,10 @@ import { NewIngredientComponent } from '../../components/new-ingredient/new-ingr
 import { Instructions, InstructionsId } from 'src/app/models/instructions';
 import { Times, TimesId } from 'src/app/models/times';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
-import { Observable, Subscription } from 'rxjs';
-
-
-
+import { Observable, Subscription, map } from 'rxjs';
+import { MatIconRegistry } from '@angular/material/icon';
+import { HotToastService } from '@ngneat/hot-toast';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-nuevo-test',
   templateUrl: './nuevo-test.component.html',
@@ -25,7 +27,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class NuevoTestComponent implements OnInit {
 
-  img:any
+  img?:File
   types:any[]=[]
   ingredientsCatalog:any[]=[]
 
@@ -41,6 +43,11 @@ export class NuevoTestComponent implements OnInit {
     dificulty: new FormControl('',[Validators.required])
   });
 
+  myControl = new FormControl();
+  options: Ingredients[] = [];
+  filteredOptions?: Observable<Ingredients[]>;
+
+
   qestions: any[] = [{}]
   tittle=''
   description=''
@@ -48,14 +55,19 @@ export class NuevoTestComponent implements OnInit {
   observer: Subscription[] =[]
 
   constructor(
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
     private typesService: TypeService,
     private ingredientService: IngredientService,
     private ingredientsService: IngredientsService,
     private instructionsService: InstructionsService,
     private timesService: TimesService,
     private dialog: MatDialog,
-    private recipeService: RecipeService
-  ) { }
+    private recipeService: RecipeService,
+    private toast: HotToastService,
+  ) {
+    iconRegistry.addSvgIcon('ingredientes', sanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/image 2.svg'))
+   }
 
   addIngredient(){
     var otherIngredient: IngredientsRecipe = {}
@@ -91,33 +103,58 @@ export class NuevoTestComponent implements OnInit {
   }
 
   submit(){
+    const load = this.toast.loading("Cargando...")
     const {name, portions, type, dificulty} = this.recipeForm.value;
     var newRecipe: Recipe={}
     newRecipe.name=name
     newRecipe.portions=portions
     newRecipe.type=type
     newRecipe.difficulty=dificulty
-    this.recipeService.postRecipe(newRecipe).then(
-      result=>{
-        this.ingredients.forEach(i=>{
-            i.recipe=result.id
-            var aux=i.ingredient as IngredientsId
-            i.ingredient=aux.id
-            if(i.alias===undefined){
-              i.alias = aux.name
-            }
-            this.ingredientsService.postIngredients(i)
-        })
-        this.instructions.forEach(inst=>{
-          inst.recipe=result.id
-          this.instructionsService.postInstruction(inst)
-        })
-        this.times.forEach(time=>{
-          time.recipe=result.id
-          this.timesService.postTimes(time)
-        })
+    this.recipeService.onUploadImage(this.img!).then(
+      img=>{
+        img.ref.getDownloadURL().then(
+          path=>{
+            newRecipe.image=path
+            this.recipeService.postRecipe(newRecipe).then(
+              result=>{
+                this.ingredients.forEach(i=>{
+                    i.recipe=result.id
+                    var aux=i.ingredient as IngredientsId
+                    i.ingredient=aux.id
+                    if(i.alias===undefined){
+                      i.alias = aux.name
+                    }
+                    this.ingredientsService.postIngredients(i)
+                })
+                this.instructions.forEach(inst=>{
+                  inst.recipe=result.id
+                  this.instructionsService.postInstruction(inst)
+                })
+                this.times.forEach(async time=>{
+                  time.recipe=result.id
+                  if(this.times.indexOf(time)===this.times.length-1){
+                    await this.timesService.postTimes(time).then(
+                      result=>{
+                        load.close()
+                        Swal.fire({
+                          icon:'success',
+                          title: 'Receta creada con exito',
+                        })
+                      }
+                    )
+                  }else{
+                    this.timesService.postTimes(time)
+                  }
+                })
+
+              }
+            )
+          }
+        )
+
       }
     )
+
   }
 
   openDialog(): void {
@@ -137,6 +174,21 @@ export class NuevoTestComponent implements OnInit {
   ngOnInit(): void {
     this.fetchTypes()
     this.fetchIngredientsCatalog()
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.options.slice())),
+    );
+  }
+
+  displayFn(ingredient: Ingredients): string {
+    return ingredient && ingredient.name ? ingredient.name : '';
+  }
+
+  private _filter(name: string): Ingredients[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name!.toLowerCase().includes(filterValue));
   }
 
   get name(){
