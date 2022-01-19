@@ -1,22 +1,26 @@
-<form [formGroup]="loginForm" (ngSubmit)="submit()">
+
+<form class="frm-sing-in" [formGroup]="loginForm" (ngSubmit)="submit()">
+  <label for="">Correo Electrónico:</label>
   <mat-form-field appearance="outline">
-    <input matInput placeholder="Email address" formControlName="email" />
+    <input matInput  formControlName="email" />
+
     <mat-error *ngIf="email?.errors?.['required']">
-      Correo electronico es requerido
+      Correo electrónico es requerido
     </mat-error>
     <mat-error *ngIf="email?.errors?.['email']">
-      Profavor ingrese un correo electronico valido
+      Por favor ingrese un correo electronico valido
     </mat-error>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput type="password" placeholder="Password" formControlName="password" />
+  <label for="">Contraseña:</label>
+  <mat-form-field appearance="outline">
+    <input matInput type="password"  formControlName="password" />
     <mat-error *ngIf="password?.errors?.['required']">
       Contraseña es requerida
     </mat-error>
-    <span><a href="http://">Olvidaste tu contraseña?</a></span>
   </mat-form-field>
-  <div class="">
-      <button type="submit" mat-raised-button color="primary">Iniciar Sesion</button>
+  <span><a href="http://">Olvidaste tu contraseña?</a></span>
+  <div class="btn">
+      <button type="submit" mat-raised-button color="primary" class="btn" >Iniciar Sesión</button>
   </div>
 </form>
-<button  mat-raised-button color="primary" (click)="signUp()">Registrarse</button>
+<button  class="btn-registre" mat-raised-button  (click)="signUp()">Registrarse</button>
