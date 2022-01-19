@@ -14,6 +14,7 @@ import { NewIngredientComponent } from '../../components/new-ingredient/new-ingr
 import { Instructions, InstructionsId } from 'src/app/models/instructions';
 import { Times, TimesId } from 'src/app/models/times';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -43,6 +44,8 @@ export class NuevoTestComponent implements OnInit {
   qestions: any[] = [{}]
   tittle=''
   description=''
+
+  observer: Subscription[] =[]
 
   constructor(
     private typesService: TypeService,
@@ -98,6 +101,11 @@ export class NuevoTestComponent implements OnInit {
       result=>{
         this.ingredients.forEach(i=>{
             i.recipe=result.id
+            var aux=i.ingredient as IngredientsId
+            i.ingredient=aux.id
+            if(i.alias===undefined){
+              i.alias = aux.name
+            }
             this.ingredientsService.postIngredients(i)
         })
         this.instructions.forEach(inst=>{
@@ -118,7 +126,6 @@ export class NuevoTestComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.fetchIngredientsCatalog()
     });
   }
 

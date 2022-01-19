@@ -91,7 +91,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
         this.ingredients = []
         result.forEach(x => {
           var auxIngredients: IngredientsList = {}
-          auxIngredients.name = x.name
+          auxIngredients.name = x.alias
           auxIngredients.quantity = x.quantity
           auxIngredients.measure = x.measure
           this.ingredients.push(auxIngredients)

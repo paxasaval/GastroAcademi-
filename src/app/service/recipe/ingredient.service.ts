@@ -38,6 +38,16 @@ export class IngredientService {
     )
    }
 
+   getIngredientsById(id: string){
+    return this.afs.collection<Ingredients>('ingredient', ref=>ref.where('id','==',id)).snapshotChanges().pipe(
+      map(actions => actions.map(a=>{
+        const data = a.payload.doc.data() as IngredientsId
+        data.id = a.payload.doc.id
+        return data
+      }))
+    )
+   }
+
    postIngredient(ingredient: Ingredients){
      return this.afs.collection<Ingredients>('ingredient').add(ingredient)
    }

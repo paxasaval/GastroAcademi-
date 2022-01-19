@@ -13,12 +13,12 @@ export class RecipeService {
     private afs: AngularFirestore,
     private storage: AngularFirestore
   ) {
-    this.recipeCollection = afs.collection<Recipe>('recipe');
+    this.recipeCollection = afs.collection<Recipe>('recipes');
     this.recipes = this.recipeCollection.valueChanges();
    }
 
    getAllrecipes(){
-     return this.afs.collection<Recipe>('recipe').snapshotChanges().pipe(
+     return this.afs.collection<Recipe>('recipes').snapshotChanges().pipe(
        map(actions => actions.map(a=>{
           const data = a.payload.doc.data() as RecipeId
           data.id = a.payload.doc.id
@@ -28,7 +28,7 @@ export class RecipeService {
    }
 
    getRecipeById(recipe:string){
-     return this.afs.doc<Recipe>(`recipe/${recipe}`).snapshotChanges().pipe(
+     return this.afs.doc<Recipe>(`recipes/${recipe}`).snapshotChanges().pipe(
        map(a => {
          const data = a.payload.data() as RecipeId
          data.id = a.payload.id
@@ -38,6 +38,6 @@ export class RecipeService {
    }
 
    postRecipe(recipe: Recipe){
-     return this.afs.collection<Recipe>('recipe').add(recipe)
+     return this.afs.collection<Recipe>('recipes').add(recipe)
    }
 }
