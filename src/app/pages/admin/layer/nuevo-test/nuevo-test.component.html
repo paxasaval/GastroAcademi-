@@ -9,7 +9,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Porciones</mat-label>
-      <input matInput formControlName="portions" />
+      <input type="number" matInput formControlName="portions" />
       <mat-error *ngIf="portions?.errors?.['required']">
         Porciones de la receta es requerido
       </mat-error>
