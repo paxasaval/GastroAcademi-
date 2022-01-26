@@ -53,7 +53,8 @@ export class SearchComponent implements OnInit {
   cards: Card[] =[]
   value: string[] = [];
 
-  constructor(iconRegistry: MatIconRegistry,
+  constructor(
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private recipeService: RecipeService,
     private ingredientsService: IngredientsService,
@@ -150,9 +151,8 @@ export class SearchComponent implements OnInit {
 
   }
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.cards1 = this.cards.filter(card => card.name!.toLowerCase().includes(filterValue))
-
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.cards = this.cards1!.filter(card => card.name!.toLowerCase().includes(filterValue))
   }
 
   ngOnInit(): void {

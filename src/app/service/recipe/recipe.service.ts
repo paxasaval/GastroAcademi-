@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { Recipe, RecipeId } from 'src/app/models/recipe';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,8 @@ export class RecipeService {
 
   constructor(
     private afs: AngularFirestore,
-    private storage: AngularFirestore
+    private storage: AngularFireStorage
+
   ) {
     this.recipeCollection = afs.collection<Recipe>('recipes');
     this.recipes = this.recipeCollection.valueChanges();
@@ -39,5 +41,11 @@ export class RecipeService {
 
    postRecipe(recipe: Recipe){
      return this.afs.collection<Recipe>('recipes').add(recipe)
+   }
+
+   onUploadImage(file: File){
+    const filePath = `recipes/${file.name}`
+    const ref = this.storage.ref(filePath)
+    return this.storage.upload(filePath,file)
    }
 }

@@ -9,7 +9,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Porciones</mat-label>
-      <input matInput formControlName="portions" />
+      <input type="number" matInput formControlName="portions" />
       <mat-error *ngIf="portions?.errors?.['required']">
         Porciones de la receta es requerido
       </mat-error>
@@ -29,7 +29,7 @@
     <mat-error *ngIf="image?.errors?.['required']; else elseBlock">
       imagen de la receta es requerido
     </mat-error>
-    <ng-template #elseBlock>{{img.name}}</ng-template>
+    <ng-template #elseBlock>{{img!.name}}</ng-template>
     <mat-form-field appearance="outline">
       <mat-label>Dificultad</mat-label>
       <mat-select formControlName="dificulty">
@@ -45,7 +45,7 @@
 </form>
 <section>
   <button mat-raised-button (click)="addIngredient()">Añadir Ingrediente</button>
-  <button mat-raised-button (click)="openDialog()">Crear Ingrediente</button>
+  <button mat-raised-button (click)="openNewIngredient()">Crear Ingrediente</button>
   <div *ngFor="let ingredient of ingredients">
     <mat-form-field appearance="outline">
       <mat-label>Ingrediente</mat-label>
@@ -104,4 +104,23 @@
     <div>p:{{time.name}},{{time.measure}},{{time.total}}</div>
   </div>
 </section>
+
+<section>
+  <button mat-raised-button (click)="addTechnique()">Añadir Recurso/Tecnica Culinaria</button>
+  <button mat-raised-button (click)="openNewTechnique()">Crear Recurso/Tecnica Culinaria</button>
+  <div *ngFor="let technique of techniques">
+    <mat-form-field appearance="outline">
+      <mat-label>Tecnica</mat-label>
+      <mat-select [(ngModel)]="technique.technique">
+        <mat-option *ngFor="let tech of techniquesCatalog" [value]="tech">{{tech.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Descripcion</mat-label>
+      <textarea matInput type="text" [(ngModel)]="technique.description"></textarea>
+    </mat-form-field>
+    <div>p:{{technique.technique}},{{technique.description}}</div>
+  </div>
+</section>
+
 <button mat-raised-button (click)="submit()">Crear Receta</button>

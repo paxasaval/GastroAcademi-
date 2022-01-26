@@ -151,10 +151,19 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   }
 
   loadTime(time:number, measure:string){
-    if(measure === "minutos"){
+    if(measure === "Minutos"){
       this.timer = time * 60
     }
-    console.log('entro')
+    if(measure === "Segundos"){
+      this.timer = time
+    }
+    if(measure === "Horas"){
+      this.timer = time * 3600
+    }
+    if(measure === "Dias"){
+      this.timer = time * 86400
+    }
+    console.log(measure)
   }
 
   ngOnInit(): void {
