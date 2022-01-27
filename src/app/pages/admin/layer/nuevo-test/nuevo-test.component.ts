@@ -31,22 +31,24 @@ import Swal from 'sweetalert2'
 })
 export class NuevoTestComponent implements OnInit {
 
-  img?:File
-  types:any[]=[]
-  ingredientsCatalog:any[]=[]
-  techniquesCatalog:any[]=[]
+  img?: File
+  types: any[] = []
+  ingredientsCatalog: any[] = []
+  techniquesCatalog: any[] = []
 
-  techniques:TechniquesRecipe[]=[]
-  ingredients:IngredientsRecipe[] = []
-  instructions:Instructions[] = []
-  times:Times[] = []
+  techniques: TechniquesRecipe[] = [{}]
+  ingredients: IngredientsRecipe[] = [{}]
+  instructions: Instructions[] = []
+  times: Times[] = [{}]
+
+  erros = false
 
   recipeForm = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    portions: new FormControl('',[Validators.required]),
-    type: new FormControl('',[Validators.required]),
-    image: new FormControl('',[Validators.required]),
-    dificulty: new FormControl('',[Validators.required])
+    name: new FormControl('', [Validators.required]),
+    portions: new FormControl('', [Validators.required]),
+    type: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required]),
+    dificulty: new FormControl('', [Validators.required])
   });
 
   myControl = new FormControl();
@@ -55,10 +57,10 @@ export class NuevoTestComponent implements OnInit {
 
 
   qestions: any[] = [{}]
-  tittle=''
-  description=''
+  tittle = ''
+  description = ''
 
-  observer: Subscription[] =[]
+  observer: Subscription[] = []
 
   constructor(
     iconRegistry: MatIconRegistry,
@@ -72,113 +74,119 @@ export class NuevoTestComponent implements OnInit {
     private recipeService: RecipeService,
     private toast: HotToastService,
     private techniquesRecipeService: TechniquesRecipeService,
-    private techniquesService:TechniquesService
+    private techniquesService: TechniquesService
   ) {
     iconRegistry.addSvgIcon('ingredientes', sanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/image 2.svg'))
-   }
+  }
 
-  addIngredient(){
+  addIngredient() {
     var otherIngredient: IngredientsRecipe = {}
     this.ingredients.push(otherIngredient)
   }
 
-  addInstruction(){
+  addInstruction() {
     var otherInstruction: Instructions = {}
-    var pos = this.instructions.length+1
-    otherInstruction.position=pos
+    var pos = this.instructions.length + 1
+    otherInstruction.position = pos
     this.instructions.push(otherInstruction)
   }
 
-  addTechnique(){
+  addTechnique() {
     var otherTechnique: TechniquesRecipe = {}
     this.techniques.push(otherTechnique)
   }
 
-  addTimes(){
-    var otherTime: Times ={}
+  addTimes() {
+    var otherTime: Times = {}
     this.times.push(otherTime)
   }
 
-  fetchTypes(){
+  fetchTypes() {
     this.typesService.getAllTypes().subscribe(
-      result=>{
-        this.types=result
+      result => {
+        this.types = result
       }
     )
   }
 
-  fetchIngredientsCatalog(){
+  fetchIngredientsCatalog() {
     this.ingredientService.getAllIingredient().subscribe(
-      result=>{
-        this.ingredientsCatalog=result
+      result => {
+        this.ingredientsCatalog = result
       }
     )
   }
 
-  fetchTechniqueCatalog(){
+  fetchTechniqueCatalog() {
     this.techniquesService.getAllTechniques().subscribe(
-      result=>{
-        this.techniquesCatalog=result
+      result => {
+        this.techniquesCatalog = result
       }
     )
   }
 
-  submit(){
-    const load = this.toast.loading("Cargando...")
-    const {name, portions, type, dificulty} = this.recipeForm.value;
-    var newRecipe: Recipe={}
-    newRecipe.name=name
-    newRecipe.portions=portions
-    newRecipe.type=type
-    newRecipe.difficulty=dificulty
-    this.recipeService.onUploadImage(this.img!).then(
-      img=>{
-        img.ref.getDownloadURL().then(
-          path=>{
-            newRecipe.image=path
-            this.recipeService.postRecipe(newRecipe).then(
-              result=>{
-                this.ingredients.forEach(i=>{
-                    i.recipe=result.id
-                    var aux=i.ingredient as IngredientsId
-                    i.ingredient=aux.id
-                    if(i.alias===undefined){
+  submit() {
+
+
+    if (!this.recipeForm.valid) {
+      this.erros = true
+    } else {
+      const load = this.toast.loading("Cargando...")
+      const { name, portions, type, dificulty } = this.recipeForm.value;
+      var newRecipe: Recipe = {}
+      newRecipe.name = name
+      newRecipe.portions = portions
+      newRecipe.type = type
+      newRecipe.difficulty = dificulty
+      this.recipeService.onUploadImage(this.img!).then(
+        img => {
+          img.ref.getDownloadURL().then(
+            path => {
+              newRecipe.image = path
+              this.recipeService.postRecipe(newRecipe).then(
+                result => {
+                  this.ingredients.forEach(i => {
+                    i.recipe = result.id
+                    var aux = i.ingredient as IngredientsId
+                    i.ingredient = aux.id
+                    if (i.alias === undefined) {
                       i.alias = aux.name
                     }
                     this.ingredientsService.postIngredients(i)
-                })
-                this.instructions.forEach(inst=>{
-                  inst.recipe=result.id
-                  this.instructionsService.postInstruction(inst)
-                })
-                this.techniques.forEach(technique=>{
-                  technique.recipe=result.id
-                  this.techniquesRecipeService.postTechniquesRecipe(technique)
-                })
-                this.times.forEach(async time=>{
-                  time.recipe=result.id
-                  if(this.times.indexOf(time)===this.times.length-1){
-                    await this.timesService.postTimes(time).then(
-                      result=>{
-                        load.close()
-                        Swal.fire({
-                          icon:'success',
-                          title: 'Receta creada con exito',
-                        })
-                      }
-                    )
-                  }else{
-                    this.timesService.postTimes(time)
-                  }
-                })
+                  })
+                  this.instructions.forEach(inst => {
+                    inst.recipe = result.id
+                    this.instructionsService.postInstruction(inst)
+                  })
+                  this.techniques.forEach(technique => {
+                    technique.recipe = result.id
+                    this.techniquesRecipeService.postTechniquesRecipe(technique)
+                  })
+                  this.times.forEach(async time => {
+                    time.recipe = result.id
+                    if (this.times.indexOf(time) === this.times.length - 1) {
+                      await this.timesService.postTimes(time).then(
+                        result => {
+                          load.close()
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Receta creada con exito',
+                          })
+                        }
+                      )
+                    } else {
+                      this.timesService.postTimes(time)
+                    }
+                  })
 
-              }
-            )
-          }
-        )
+                }
+              )
+            }
+          )
 
-      }
-    )
+        }
+      )
+    }
 
   }
 
@@ -227,20 +235,20 @@ export class NuevoTestComponent implements OnInit {
     return this.options.filter(option => option.name!.toLowerCase().includes(filterValue));
   }
 
-  get name(){
+  get name() {
     return this.recipeForm.get('name')
   }
 
-  get portions(){
+  get portions() {
     return this.recipeForm.get('portions')
   }
-  get type(){
+  get type() {
     return this.recipeForm.get('type')
   }
-  get image(){
+  get image() {
     return this.recipeForm.get('image')
   }
-  get dificulty(){
+  get dificulty() {
     return this.recipeForm.get('dificulty')
   }
 }
