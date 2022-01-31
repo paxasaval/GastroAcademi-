@@ -214,6 +214,11 @@ export class NuevoTestComponent implements OnInit {
 
   }
 
+  delete(pos:number, list:any[]){
+    list.splice(pos,1)
+    return list
+  }
+
   ngOnInit(): void {
     this.fetchTypes()
     this.fetchIngredientsCatalog()

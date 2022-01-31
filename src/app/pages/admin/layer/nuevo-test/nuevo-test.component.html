@@ -75,15 +75,8 @@
   </form>
   <!-- Ingredientes -->
   <section class="container-data">
-    <div class="btns">
-      <div class="btn-add">
-        <button mat-raised-button (click)="addIngredient()">Añadir Ingrediente</button>
-      </div>
-      <div class="btn-new">
-        <button mat-raised-button (click)="openNewIngredient()">Crear Ingrediente</button>
-      </div>
-    </div>
-    <div *ngFor="let ingredient of ingredients.reverse()" class="frm-data">
+    <h3 class="label-inst">Ingredientes:</h3>
+    <div *ngFor="let ingredient of ingredients" class="frm-data">
       <div class="frm-ing">
         <label class="labels">Ingrediente:</label>
         <mat-form-field appearance="outline">
@@ -110,30 +103,49 @@
           <input matInput [(ngModel)]="ingredient.measure" />
         </mat-form-field>
       </div>
+      <div class="btn-delete">
+        <button mat-icon-button (click)="delete(ingredients.indexOf(ingredient),ingredients)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="btns">
+      <div class="btn-add">
+        <button mat-raised-button (click)="addIngredient()">Añadir Ingrediente</button>
+      </div>
+      <div class="btn-new">
+        <button mat-raised-button (click)="openNewIngredient()">Crear Ingrediente</button>
+      </div>
     </div>
   </section>
   <div class="divider"></div>
   <!-- Instrucciones -->
   <section class="container-data">
-    <div class="btn-add">
-      <button mat-raised-button (click)="addInstruction()">Añadir Instruccion</button>
-    </div>
     <h3 class="label-inst">Instrucciones:</h3>
-    <div *ngFor="let instruction of instructions">
+    <div *ngFor="let instruction of instructions" class="instructions">
       <div class="frm-ing-inst">
         <div class="frm-position">{{instruction.position}}</div>
         <mat-form-field appearance="outline">
           <textarea matInput [(ngModel)]="instruction.description"></textarea>
         </mat-form-field>
       </div>
+      <div class="btn-delete">
+        <button mat-icon-button (click)="delete(instructions.indexOf(instruction),instructions)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
+    <div class="btns">
+      <div class="btn-add">
+        <button mat-raised-button (click)="addInstruction()">Añadir Instrucción</button>
+      </div>
+    </div>
+    
   </section>
   <div class="divider"></div>
   <!-- tiempos -->
   <section class="container-data">
-    <div class="btn-add">
-      <button mat-raised-button (click)="addTimes()">Añadir Tiempo</button>
-    </div>
+    <h3 class="label-inst">Tiempos:</h3>  
     <div *ngFor="let time of times" class="frm-data">
       <div class="frm-ing">
         <label class="labels">Nombre:</label>
@@ -158,22 +170,24 @@
           <input matInput type="number" [(ngModel)]="time.total" />
         </mat-form-field>
       </div>
-
+      <div class="btn-delete">
+        <button mat-icon-button (click)="delete(times.indexOf(time),times)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
+    <div class="btns">
+      <div class="btn-add">
+        <button mat-raised-button (click)="addTimes()">Añadir Tiempo</button>
+      </div>
+    </div>  
   </section>
   <div class="divider"></div>
   <!-- Tecnicas -->
   <section class="container-data">
-    <div class="btns">
-      <div class="btn-add-tec">
-        <button mat-raised-button (click)="addTechnique()">Añadir Recurso/Tecnica Culinaria</button>
-      </div>
-      <div class="btn-new-tec">
-        <button mat-raised-button (click)="openNewTechnique()">Crear Recurso/Tecnica Culinaria</button>
-      </div>
-    </div>
+    <h3 class="label-inst">Técnicas:</h3>   
     <div *ngFor="let technique of techniques" class="frm-data">
-      <div class="frm-ing">
+      <div class="frm-tec">
         <label class="labels">Técnica:</label>
         <mat-form-field appearance="outline">
           <mat-select [(ngModel)]="technique.technique">
@@ -181,11 +195,24 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="frm-tec">
+      <div class="frm-tec-desc">
         <label class="labels">Descripción:</label>
         <mat-form-field appearance="outline">
           <textarea matInput type="text" [(ngModel)]="technique.description"></textarea>
         </mat-form-field>
+      </div>
+      <div class="btn-delete">
+        <button mat-icon-button (click)="delete(techniques.indexOf(technique),techniques)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="btns">
+      <div class="btn-add-tec">
+        <button mat-raised-button (click)="addTechnique()">Añadir Recurso/Tecnica Culinaria</button>
+      </div>
+      <div class="btn-new-tec">
+        <button mat-raised-button (click)="openNewTechnique()">Crear Recurso/Tecnica Culinaria</button>
       </div>
     </div>
   </section>

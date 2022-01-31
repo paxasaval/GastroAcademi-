@@ -1,19 +1,29 @@
-<form [formGroup]="newIngredientForm" (ngSubmit)="submit()">
-  <mat-form-field appearance="outline">
-    <mat-label>Categoria</mat-label>
-    <mat-select formControlName="category">
-      <mat-option *ngFor="let category of categorys" [value]="category.id">{{category.name}}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="category?.errors?.['required']">
-      Categoria del ingrediente es requerido
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name" />
-    <mat-error *ngIf="name?.errors?.['required']">
-      Nombbre del ingrediente es requerido
-    </mat-error>
-  </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Crear Ingrediente</button>
-</form>
+<div class="container">
+  <h2>Nuevo ingrediente</h2>
+  <form [formGroup]="newIngredientForm" (ngSubmit)="submit()">
+    <div class="inputs">
+      <h3> Categoría:</h3>
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of categorys" [value]="category.id">{{category.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="category?.errors?.['required']">
+          Categoría del ingrediente es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="inputs">
+      <h3> Nombre:</h3>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="name" />
+        <mat-error *ngIf="name?.errors?.['required']">
+          Nombbre del ingrediente es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="btn-create">
+      <button type="submit" mat-raised-button color="primary">Crear Ingrediente</button>
+    </div>
+  </form>
+</div>

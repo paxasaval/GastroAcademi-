@@ -2,6 +2,7 @@
   height: 100%
   width: 95%
   padding-left: 20vh
+  padding-bottom: 20vh
   background-color: #F9F9FA
   box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25)
 
@@ -15,7 +16,12 @@
     font-weight: 600
 
 .btn-create
+  display: flex
+  position: fixed
+  z-index: 99
   width: 20%
+  margin-top: 43%
+  margin-left: 73%
   button
     width: 50%
     height: 7vh
@@ -32,7 +38,7 @@
   border-radius: 16px
 .label
   width: 20%
-  font-weight: 570
+  font-weight: 600
 
 .input-data
   display: flex
@@ -58,7 +64,7 @@
 
 .label2
   width: 36%
-  font-weight: 570
+  font-weight: 600
 
 .btn-img
   background: #FFFFFF
@@ -66,13 +72,16 @@
   box-sizing: border-box
   border-radius: 5px
   color: #F96A04
-
-/*Ingredientes*/
 .container-data
   padding-left: 17vw
+  padding-right: 17vw
   margin-top: 5%
+
+/*Ingredientes*/
+
 .btns
   display: flex
+  margin-top: 2%
 
 .btn-add
   width: 20%
@@ -99,6 +108,7 @@
   display: flex
   margin-top: 2%
   flex-direction: column
+  width: 25%
   mat-form-field
     margin-right: 10%
  
@@ -106,25 +116,30 @@
   margin-top: 2%
   display: flex
   flex-direction: column
+  width: 9.5%
   mat-form-field
-    width: 30%
+    width: 65.5%
   
 .frm-meassure
   margin-top: 2%
   display: flex
   flex-direction: column
+  width: 20%
   mat-form-field
     width: 60%
 
 /*Instrucciones*/
+.instructions
+  display: flex
 .label-inst
   margin-top: 1.5%
-  font-weight: 500
+  font-weight: 600
 .frm-ing-inst
   display: flex
   margin-top: 2%
+  width: 80%
   mat-form-field
-    width: 67.5%
+    width: 85%
 .frm-position
   display: flex
   text-align: center
@@ -149,17 +164,36 @@
     box-sizing: border-box
     border-radius: 5px
     color: #F96A04
+.frm-tec-desc
+  display: flex
+  margin-top: 2%
+  flex-direction: column
+  width: 50%
+  mat-form-field
+    width: 90%
 .frm-tec
   display: flex
   margin-top: 2%
   flex-direction: column
-  width: 60%
+  width: 30%
   mat-form-field
-    margin-right: 10%
+    margin-right: 10%    
 
 /*divider*/
 .divider
   margin-top: 2%
   width: 70vw
-  background-color:#000
-  height: 1px
+  background-color:#0000003b
+  height: 2px
+
+/*Delete*/
+.btn-delete
+  display: flex
+  text-align: end
+  align-items: flex-end
+  color: #F96A04
+  width: 10%
+
+.mat-icon-button mat-icon
+  font-size: 2.5em
+  
