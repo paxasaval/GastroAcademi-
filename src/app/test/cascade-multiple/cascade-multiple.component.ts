@@ -1,3 +1,4 @@
+import { Recipe } from './../../models/recipe';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
 import { IngredientsRecipe } from './../../models/ingredients-recipe';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,10 @@ import { CategoryService } from 'src/app/service/recipe/category.service';
 import { IngredientService } from 'src/app/service/recipe/ingredient.service';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree'
+import { Packer } from "docx";
+import * as fs from 'file-saver';
+import { DocumentCreator } from "./doc-generator";
+
 export interface Nodes {
   title: any,
   key?: any,
@@ -22,6 +27,7 @@ export class CascadeMultipleComponent implements OnInit {
   recipes: any[] = []
   recipesAux: any[] = []
   value: string[] = [];
+  testRecipe: Recipe={}
   nodes: NzTreeNodeOptions[] = [
     {
       title: 'parent 1',
@@ -50,6 +56,7 @@ export class CascadeMultipleComponent implements OnInit {
     private ingredientsService: IngredientsService,
     private recipeService: RecipeService
     ) { }
+
 
   async fetchNodes() {
     this.nodes = []
@@ -108,6 +115,20 @@ export class CascadeMultipleComponent implements OnInit {
 
   }
 
+  public download(): void {
+    const documentCreator = new DocumentCreator();
+    const doc = documentCreator.create(this.testRecipe);
+
+    Packer.toBlob(doc).then(buffer => {
+      console.log(buffer);
+      fs.saveAs(buffer, "example.docx");
+      console.log("Document created successfully");
+    });
+
+
+
+  }
+
   onChange($event: string[]): void {
     if ($event.length > 0) {
       this.fetchRecipes($event)
@@ -122,6 +143,7 @@ export class CascadeMultipleComponent implements OnInit {
       result => {
         this.recipesAux = result
         this.recipes = this.recipesAux
+        this.testRecipe = result[0]
       }
     )
     this.fetchNodes()
