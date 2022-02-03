@@ -1,6 +1,13 @@
+import { TechniquesRecipeService } from './../../service/recipe/techniques-recipe.service';
+import { TimesId } from 'src/app/models/times';
+import { InstructionsService } from './../../service/recipe/instructions.service';
+import { TechniquesRecipeId } from 'src/app/models/techniques-recipe';
+import { InstructionsList } from './../../pages/search-recipe/recipe/recipe.component';
+import { RecipeId } from 'src/app/models/recipe';
+import { HttpClient } from '@angular/common/http';
 import { Recipe } from './../../models/recipe';
 import { RecipeService } from 'src/app/service/recipe/recipe.service';
-import { IngredientsRecipe } from './../../models/ingredients-recipe';
+import { IngredientsRecipe, IngredientsRecipeId } from './../../models/ingredients-recipe';
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, switchMap } from 'rxjs';
 import { CategoryService } from 'src/app/service/recipe/category.service';
@@ -9,7 +16,13 @@ import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree'
 import { Packer } from "docx";
 import * as fs from 'file-saver';
+import * as fs1 from "fs";
+
 import { DocumentCreator } from "./doc-generator";
+import { Document, Paragraph, TextRun, HeadingLevel, ImageRun } from "docx";
+import { InstructionsId } from 'src/app/models/instructions';
+import { TimesService } from 'src/app/service/recipe/times.service';
+
 
 export interface Nodes {
   title: any,
@@ -17,7 +30,11 @@ export interface Nodes {
   children?: any[]
   isLeaf?: any
 }
+export interface RecipeImpres {
+  title?: string,
+  times?: any[],
 
+}
 @Component({
   selector: 'app-cascade-multiple',
   templateUrl: './cascade-multiple.component.html',
@@ -27,7 +44,11 @@ export class CascadeMultipleComponent implements OnInit {
   recipes: any[] = []
   recipesAux: any[] = []
   value: string[] = [];
-  testRecipe: Recipe={}
+  testRecipe: RecipeId = {}
+  testRecipeIngredients: IngredientsRecipeId[] = []
+  testRecipeIInstructions: InstructionsId[] = []
+  testRecipeTechiniques: TechniquesRecipeId[] = []
+  testRecipeTimes: TimesId[] = []
   nodes: NzTreeNodeOptions[] = [
     {
       title: 'parent 1',
@@ -54,8 +75,14 @@ export class CascadeMultipleComponent implements OnInit {
     private categoryService: CategoryService,
     private ingredientService: IngredientService,
     private ingredientsService: IngredientsService,
-    private recipeService: RecipeService
-    ) { }
+    private recipeService: RecipeService,
+    private instructionsService: InstructionsService,
+    private techniquesRecipeService: TechniquesRecipeService,
+    private timesService: TimesService,
+    private http: HttpClient
+  ) { }
+
+
 
 
   async fetchNodes() {
@@ -117,13 +144,24 @@ export class CascadeMultipleComponent implements OnInit {
 
   public download(): void {
     const documentCreator = new DocumentCreator();
-    const doc = documentCreator.create(this.testRecipe);
+    this.http.get(this.testRecipe.image!, { responseType: 'blob' }).subscribe(
+      result => {
+        const bufferPromise = result.arrayBuffer();
+        bufferPromise.then(
+          bufferP => {
+            console.log(bufferP)
+            const doc = documentCreator.create(this.testRecipe, bufferP, this.testRecipeIngredients,this.testRecipeIInstructions, this.testRecipeTimes);
 
-    Packer.toBlob(doc).then(buffer => {
-      console.log(buffer);
-      fs.saveAs(buffer, "example.docx");
-      console.log("Document created successfully");
-    });
+            Packer.toBlob(doc).then(buffer => {
+              console.log(buffer);
+              fs.saveAs(buffer, "example.docx");
+              console.log("Document created successfully");
+            });
+
+          }
+        );
+      }
+    )
 
 
 
@@ -144,6 +182,21 @@ export class CascadeMultipleComponent implements OnInit {
         this.recipesAux = result
         this.recipes = this.recipesAux
         this.testRecipe = result[0]
+        this.ingredientsService.getIngredientsByRecipe(this.testRecipe.id!).subscribe(
+          ingredients=>{
+            this.testRecipeIngredients=ingredients
+          }
+        )
+        this.instructionsService.getInstructionByRecipe(this.testRecipe.id!).subscribe(
+          instructions=>{
+            this.testRecipeIInstructions=instructions
+          }
+        )
+        this.timesService.getTimesByRecipe(this.testRecipe.id!).subscribe(
+          times=>{
+            this.testRecipeTimes=times
+          }
+        )
       }
     )
     this.fetchNodes()

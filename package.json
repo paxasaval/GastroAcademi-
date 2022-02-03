@@ -8,6 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.1.0",
@@ -26,7 +31,9 @@
     "angular-responsive-carousel": "^2.1.2",
     "docx": "^7.3.0",
     "file-saver": "^2.0.5",
+    "file-system": "^2.2.2",
     "firebase": "^9.6.1",
+    "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
     "ng-multiselect-dropdown": "^0.3.7",
     "ng-zorro-antd": "^13.0.0",

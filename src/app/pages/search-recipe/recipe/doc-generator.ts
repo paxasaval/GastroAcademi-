@@ -1,6 +1,4 @@
-import { IngredientsRecipe } from './../../models/ingredients-recipe';
 import { TimesId } from 'src/app/models/times';
-import { TimesService } from './../../service/recipe/times.service';
 import { HttpClient } from '@angular/common/http';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, ImageRun, AlignmentType } from "docx";
 import { readFile, readFileSync } from 'fs';
