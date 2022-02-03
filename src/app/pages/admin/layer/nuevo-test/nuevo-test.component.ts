@@ -201,8 +201,7 @@ export class NuevoTestComponent implements OnInit {
 
   openNewTechnique(): void {
     const dialogRef = this.dialog.open(NewTechniqueComponent, {
-      width: '450px',
-      height: '550px'
+      width: '450px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

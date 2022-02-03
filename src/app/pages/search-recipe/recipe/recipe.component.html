@@ -2,6 +2,8 @@
   <div class="header">
     <h1>{{recipe.name}}</h1>
   </div>
+  <!-- Primera Seccion -->
+  <!-- Receta -->
   <div class="container">
     <div class="left">
       <!--Ingredients-->
@@ -23,7 +25,7 @@
 
             <!-- medida Column -->
             <ng-container matColumnDef="medida">
-              <th mat-header-cell *matHeaderCellDef>  </th>
+              <th mat-header-cell *matHeaderCellDef> </th>
               <td mat-cell *matCellDef="let element"> {{element.measure}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -102,6 +104,38 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+  <!-- Segunda Seccion -->
+  <!-- Tecnicas Culinaria -->
+  <div class="divider"></div>
+  <div>
+    <h1 class="title-section">Técnicas culinarias</h1>
+    <div *ngFor="let tech of techniques" class="container-technique">
+      <div class="container-data">
+        <span class="title-technique">{{tech.technique!.name}}</span>
+        <p class="description">{{tech.description}}</p>
+      </div>
+      <div *ngIf="tech.technique!.type == 1" class="container-img-tech">
+        <img src="../../../../assets/URL1.png" alt="">
+      </div>
+      <div *ngIf="tech.technique!.type == 2" class="container-img-tech">
+        <iframe width="560" height="315" [src]="auxTechnique[techniques.indexOf(tech)]" title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <div *ngIf="tech.technique!.type == 3" class="container-img-tech">
+        <a [href]="tech.technique!.resource">
+          <img src="../../../../assets/documento-pdf.png" alt="">
+        </a>
+
+      </div>
+      <div *ngIf="tech.technique!.type == 4" class="container-img-tech">
+        <a [href]="tech.technique!.resource">
+          <img [src]="tech.technique!.resource" alt="">
+        </a>
       </div>
     </div>
   </div>

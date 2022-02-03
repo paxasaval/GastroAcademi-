@@ -1,5 +1,5 @@
 import { RecipeId } from 'src/app/models/recipe';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Sanitizer, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Instructions, InstructionsId } from 'src/app/models/instructions';
 import { IngredientsService } from 'src/app/service/recipe/ingredients.service';
@@ -9,6 +9,10 @@ import { TimesService } from 'src/app/service/recipe/times.service';
 import { Ingredients, IngredientsId } from 'src/app/models/ingredients';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { TechniquesRecipe } from 'src/app/models/techniques-recipe';
+import { TechniquesRecipeService } from 'src/app/service/recipe/techniques-recipe.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Techniques } from 'src/app/models/techniques';
 
 export interface TimeList{
   name?: string;
@@ -42,11 +46,7 @@ export interface RecipeInfo{
 
 export class RecipeComponent implements OnInit ,AfterViewInit{
   recipeId = ""
-  tecnicas = [
-    { path: '../../../../assets/image 10.png' },
-    { path: '../../../../assets/image 10.png' },
-    { path: '../../../../assets/image 10.png' },
-  ]
+  techniques: TechniquesRecipe[] = []
 
   recipes: RecipeInfo[] = []
   recipe: RecipeId={}
@@ -63,6 +63,8 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   displayedColumns: string[] = ['ingrediente', 'cantidad', 'medida'];
   displayedColumns2: string[] = ['posicion', 'descripcion'];
 
+  auxTechnique: any [] = []
+
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -72,9 +74,11 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   constructor(
     private recipeService: RecipeService,
     private timesService: TimesService,
+    private techniquesRecipeService: TechniquesRecipeService,
     private ingredientsService: IngredientsService,
     private instructionsService: InstructionsService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) { }
 
   fetchRecipe(){
@@ -143,13 +147,6 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     )
   }
 
-  startTimer(){
-
-  }
-  endTimer(){
-
-  }
-
   loadTime(time:number, measure:string){
     if(measure === "Minutos"){
       this.timer = time * 60
@@ -166,12 +163,27 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     console.log(measure)
   }
 
+  fetchTechniques(){
+    this.techniquesRecipeService.getTechniquesRecipeByRecipe(this.recipeId).subscribe(
+      technique => {
+        this.techniques = technique
+        this.techniques.forEach(t =>{
+          var aux = t.technique?.resource!.replace('/watch?v=','/embed/')
+          
+          this.auxTechnique.push( this.sanitizer.bypassSecurityTrustResourceUrl(aux!))
+          
+        })
+      }
+    )
+  }
+
   ngOnInit(): void {
     this.router.params.subscribe((params:  Params) => {       this.recipeId = params["id"]   });
     this.fetchRecipe();
     this.fetchRTimesRecipe();
     this.fetchInstructionsRecipe();
     this.fetchIngredientsRecipe();
+    this.fetchTechniques();
   }
 
 

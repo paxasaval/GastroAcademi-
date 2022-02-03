@@ -42,7 +42,7 @@ export class NewTechniqueComponent implements OnInit {
     var newTechnique: Techniques = {}
     newTechnique.name = name
     newTechnique.type = type
-    if (newTechnique.type === 'Enlace') {
+    if (newTechnique.type == 1) {
       const { resource } = this.newTechniqueForm.value
       newTechnique.resource = resource
       this.techniquesService.postTechniques(newTechnique).then(
