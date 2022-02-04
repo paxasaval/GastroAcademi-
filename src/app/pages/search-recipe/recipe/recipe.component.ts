@@ -1,3 +1,7 @@
+import { TimesId } from './../../../models/times';
+import { TechniquesRecipeId } from './../../../models/techniques-recipe';
+import { IngredientsRecipeId } from './../../../models/ingredients-recipe';
+import { HttpClient } from '@angular/common/http';
 import { RecipeId } from 'src/app/models/recipe';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -9,6 +13,11 @@ import { TimesService } from 'src/app/service/recipe/times.service';
 import { Ingredients, IngredientsId } from 'src/app/models/ingredients';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { DocumentCreator } from "./doc-generator";
+import { Packer } from "docx";
+import * as fs from 'file-saver';
+
+
 
 export interface TimeList{
   name?: string;
@@ -48,15 +57,24 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     { path: '../../../../assets/image 10.png' },
   ]
 
+  logo1?:ArrayBuffer
+  logo2?:ArrayBuffer
+
+
   recipes: RecipeInfo[] = []
   recipe: RecipeId={}
+  testRecipeIngredients: IngredientsRecipeId[] = []
+  testRecipeIInstructions: InstructionsId[] = []
+  testRecipeTechiniques: TechniquesRecipeId[] = []
+  testRecipeTimes: TimesId[] = []
+
+
   times: TimeList[] = []
 
   timer:number=0
 
 
   ingredients: IngredientsList[] = []
-
   instructions: InstructionsList [] = []
   dataSource=new MatTableDataSource<any>([])
   dataSource1=new MatTableDataSource<any>([])
@@ -74,7 +92,8 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     private timesService: TimesService,
     private ingredientsService: IngredientsService,
     private instructionsService: InstructionsService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   fetchRecipe(){
@@ -88,6 +107,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   fetchIngredientsRecipe(){
     this.ingredientsService.getIngredientsByRecipe(this.recipeId).subscribe(
       result => {
+        this.testRecipeIngredients= result
         this.ingredients = []
         result.forEach(x => {
           var auxIngredients: IngredientsList = {}
@@ -111,6 +131,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
   fetchInstructionsRecipe(){
     this.instructionsService.getInstructionByRecipe(this.recipeId).subscribe(
       result => {
+        this.testRecipeIInstructions = result
         this.instructions = []
         result.forEach(x => {
           var auxInstructions: InstructionsList = {}
@@ -143,6 +164,30 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     )
   }
 
+  public download(): void {
+    const documentCreator = new DocumentCreator();
+    this.http.get(this.recipe.image!, { responseType: 'blob' }).subscribe(
+      result => {
+        const bufferPromise = result.arrayBuffer();
+        bufferPromise.then(
+          bufferP => {
+            const doc = documentCreator.create(this.recipe, bufferP, this.testRecipeIngredients,this.testRecipeIInstructions, this.testRecipeTimes, this.logo1,this.logo2);
+
+            Packer.toBlob(doc).then(buffer => {
+              console.log(buffer);
+              fs.saveAs(buffer, "example.docx");
+              console.log("Document created successfully");
+            });
+
+          }
+        );
+      }
+    )
+
+
+
+  }
+
   startTimer(){
 
   }
@@ -172,6 +217,22 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     this.fetchRTimesRecipe();
     this.fetchInstructionsRecipe();
     this.fetchIngredientsRecipe();
+    this.http.get('https://firebasestorage.googleapis.com/v0/b/gastroacademi.appspot.com/o/resources%2Fimagen_2022-02-03_170019.png?alt=media&token=4b4c67fc-5fa5-47e1-a9ee-0c09802b6824', { responseType: 'blob' }).subscribe(
+          result => {
+            const bufferPromise = result.arrayBuffer();
+            bufferPromise.then(
+              bufferP => {
+                this.logo1 = bufferP
+              })
+        })
+        this.http.get('https://firebasestorage.googleapis.com/v0/b/gastroacademi.appspot.com/o/resources%2Fmarca%20UTPL%202018-01.png?alt=media&token=ddd95ed8-ebc0-441d-888e-8d24a388b919', { responseType: 'blob' }).subscribe(
+          result => {
+            const bufferPromise = result.arrayBuffer();
+            bufferPromise.then(
+              bufferP => {
+                this.logo2 = bufferP
+              })
+        })
   }
 
 

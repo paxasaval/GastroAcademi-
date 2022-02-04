@@ -49,6 +49,8 @@ export class CascadeMultipleComponent implements OnInit {
   testRecipeIInstructions: InstructionsId[] = []
   testRecipeTechiniques: TechniquesRecipeId[] = []
   testRecipeTimes: TimesId[] = []
+  logo1?: ArrayBuffer
+  logo2?: ArrayBuffer
   nodes: NzTreeNodeOptions[] = [
     {
       title: 'parent 1',
@@ -149,8 +151,7 @@ export class CascadeMultipleComponent implements OnInit {
         const bufferPromise = result.arrayBuffer();
         bufferPromise.then(
           bufferP => {
-            console.log(bufferP)
-            const doc = documentCreator.create(this.testRecipe, bufferP, this.testRecipeIngredients,this.testRecipeIInstructions, this.testRecipeTimes);
+            const doc = documentCreator.create(this.testRecipe, bufferP, this.testRecipeIngredients,this.testRecipeIInstructions, this.testRecipeTimes, this.logo1,this.logo2);
 
             Packer.toBlob(doc).then(buffer => {
               console.log(buffer);
@@ -197,9 +198,24 @@ export class CascadeMultipleComponent implements OnInit {
             this.testRecipeTimes=times
           }
         )
-      }
-    )
+        this.http.get('https://firebasestorage.googleapis.com/v0/b/gastroacademi.appspot.com/o/resources%2Fimagen_2022-02-03_170019.png?alt=media&token=4b4c67fc-5fa5-47e1-a9ee-0c09802b6824', { responseType: 'blob' }).subscribe(
+          result => {
+            const bufferPromise = result.arrayBuffer();
+            bufferPromise.then(
+              bufferP => {
+                this.logo1 = bufferP
+              })
+        })
+        this.http.get('https://firebasestorage.googleapis.com/v0/b/gastroacademi.appspot.com/o/resources%2Fmarca%20UTPL%202018-01.png?alt=media&token=ddd95ed8-ebc0-441d-888e-8d24a388b919', { responseType: 'blob' }).subscribe(
+          result => {
+            const bufferPromise = result.arrayBuffer();
+            bufferPromise.then(
+              bufferP => {
+                this.logo2 = bufferP
+              })
+        })
     this.fetchNodes()
-  }
 
+  })
+}
 }
