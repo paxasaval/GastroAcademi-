@@ -61,8 +61,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
 
   logo1?:ArrayBuffer
   logo2?:ArrayBuffer
-
-
+  format = 'mm:ss'
   recipes: RecipeInfo[] = []
   recipe: RecipeId={}
   testRecipeIngredients: IngredientsRecipeId[] = []
@@ -210,6 +209,10 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     if(measure === "Dias"){
       this.timer = time * 86400
     }
+    if(this.timer>3600){
+      this.format = 'hh:mm:ss'
+    }
+    console.log(this.timer)
     console.log(measure)
   }
 

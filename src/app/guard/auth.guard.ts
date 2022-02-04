@@ -15,17 +15,23 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(){
-    return this.userSerevice.getUserById(localStorage.getItem('user')!).pipe(
-      take(1),
-      switchMap(async (user)=>{
-        if(user.rol==='Administrador'){
-          return true
-        }else{
-          this.router.navigate(['/admin/login'])
-          return false
-        }
-      })
-    )
+    if(localStorage.getItem('user')){
+      return this.userSerevice.getUserById(localStorage.getItem('user')!).pipe(
+        take(1),
+        switchMap(async (user)=>{
+          if(user.rol==='Administrador'){
+            return true
+          }else{
+            this.router.navigate(['/admin/login'])
+            return false
+          }
+        })
+      )
+    }else{
+      this.router.navigate(['/admin/login'])
+      return false
+    }
+
   }
 
 }
