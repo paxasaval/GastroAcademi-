@@ -38,6 +38,17 @@ export class TechniquesRecipeService {
     )
   }
 
+  getTechniquesRecipeByRecipe(recipe: string){
+    return this.afs.collection<TechniquesRecipe>('techniquesRecipe', ref => ref.where('recipe', '==', recipe)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as TechniquesRecipeId
+        data.id = a.payload.doc.id
+        return data
+      }))
+    )
+
+  }
+
   postTechniquesRecipe(techniqueRecipe: TechniquesRecipe) {
     return this.afs.collection<TechniquesRecipe>('techniquesRecipe').add(techniqueRecipe)
   }

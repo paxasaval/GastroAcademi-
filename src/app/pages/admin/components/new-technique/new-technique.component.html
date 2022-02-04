@@ -5,8 +5,10 @@
       <h3>Tipo:</h3>
       <mat-form-field appearance="outline">
         <mat-select formControlName="type">
-          <mat-option value="Enlace">Enlace/Link</mat-option>
-          <mat-option value="Archivo">Archivo/File</mat-option>
+          <mat-option value=1>Enlace/Link</mat-option>
+          <mat-option value=2>Video(url)</mat-option>
+          <mat-option value=3>Archivo/File</mat-option>
+          <mat-option value=4>Imagen</mat-option>
         </mat-select>
         <mat-error *ngIf="type?.errors?.['required']">
           Tipo del Recurso es requerido
@@ -24,7 +26,7 @@
     </div>
     <div class="inputs">
       <h3></h3>
-      <mat-form-field *ngIf="type!.value==='Enlace'" appearance="outline">
+      <mat-form-field *ngIf="type!.value==1 || type!.value==2" appearance="outline">
         <mat-label>Enlace/link</mat-label>
         <input matInput formControlName="resource" />
         <mat-error *ngIf="resource?.errors?.['required']">
@@ -34,7 +36,7 @@
     </div>
 
 
-    <div *ngIf="type!.value==='Archivo'" appearance="outline" class="inputs">
+    <div *ngIf="type!.value>2" appearance="outline" class="inputs">
       <h3></h3>
       <div>
         <button type="button" mat-raised-button (click)="fileInput.click()">Añadir Archivo</button>

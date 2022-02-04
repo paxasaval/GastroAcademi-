@@ -1,6 +1,6 @@
 
 export interface Techniques{
   name?: string,
-  type?: string,
+  type?: number,
   resource?: string
 }export interface TechniquesId extends Techniques{id:string}

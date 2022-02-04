@@ -8,48 +8,48 @@ import { map, Observable } from 'rxjs';
 })
 export class IngredientService {
 
-  private ingredientCollection:AngularFirestoreCollection<Ingredients>
+  private ingredientCollection: AngularFirestoreCollection<Ingredients>
   ingredient: Observable<Ingredients[]>
 
   constructor(
-    private afs:  AngularFirestore
+    private afs: AngularFirestore
   ) {
     this.ingredientCollection = afs.collection<Ingredients>('ingredient');
     this.ingredient = this.ingredientCollection.valueChanges();
-   }
+  }
 
-   getAllIingredient(){
+  getAllIingredient() {
     return this.afs.collection<Ingredients>('ingredient').snapshotChanges().pipe(
-      map(actions => actions.map(a=>{
-         const data = a.payload.doc.data() as IngredientsId
-         data.id = a.payload.doc.id
-         return data
-      }))
-    )
-   }
-
-   getIngredientsByCategory(category: string){
-    return this.afs.collection<Ingredients>('ingredient', ref=>ref.where('category','==',category)).snapshotChanges().pipe(
-      map(actions => actions.map(a=>{
+      map(actions => actions.map(a => {
         const data = a.payload.doc.data() as IngredientsId
         data.id = a.payload.doc.id
         return data
       }))
     )
-   }
+  }
 
-   getIngredientsById(id: string){
-    return this.afs.collection<Ingredients>('ingredient', ref=>ref.where('id','==',id)).snapshotChanges().pipe(
-      map(actions => actions.map(a=>{
+  getIngredientsByCategory(category: string) {
+    return this.afs.collection<Ingredients>('ingredient', ref => ref.where('category', '==', category)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
         const data = a.payload.doc.data() as IngredientsId
         data.id = a.payload.doc.id
         return data
       }))
     )
-   }
+  }
 
-   postIngredient(ingredient: Ingredients){
-     return this.afs.collection<Ingredients>('ingredient').add(ingredient)
-   }
+  getIngredientsById(id: string) {
+    return this.afs.collection<Ingredients>('ingredient', ref => ref.where('id', '==', id)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as IngredientsId
+        data.id = a.payload.doc.id
+        return data
+      }))
+    )
+  }
+
+  postIngredient(ingredient: Ingredients) {
+    return this.afs.collection<Ingredients>('ingredient').add(ingredient)
+  }
 
 }

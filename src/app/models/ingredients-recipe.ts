@@ -1,5 +1,4 @@
 import { IngredientsId } from 'src/app/models/ingredients';
-import { Ingredients } from "./ingredients";
 
 export interface IngredientsRecipe{
   ingredient?: string|IngredientsId,
