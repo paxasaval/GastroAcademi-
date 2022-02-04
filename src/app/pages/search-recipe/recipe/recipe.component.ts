@@ -99,7 +99,8 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
     private instructionsService: InstructionsService,
     private router: ActivatedRoute,
     private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private route: Router
 
   ) { }
 
@@ -183,7 +184,7 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
 
             Packer.toBlob(doc).then(buffer => {
               console.log(buffer);
-              fs.saveAs(buffer, "example.docx");
+              fs.saveAs(buffer, `${this.recipe.name}.docx`);
               console.log("Document created successfully");
             });
 
@@ -224,6 +225,10 @@ export class RecipeComponent implements OnInit ,AfterViewInit{
         })
       }
     )
+  }
+
+  home(){
+    this.route.navigate(['/Buscar-receta'])
   }
 
   ngOnInit(): void {

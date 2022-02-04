@@ -1,6 +1,12 @@
 <div class="main">
   <div class="header">
     <h1>{{recipe.name}}</h1>
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="home()">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="download()">
+      <mat-icon>print</mat-icon>
+    </button>
   </div>
   <!-- Primera Seccion -->
   <!-- Receta -->

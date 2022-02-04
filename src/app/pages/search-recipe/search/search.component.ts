@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UserService } from './../../../service/user/user.service';
 import { CategoryService } from 'src/app/service/recipe/category.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -52,6 +54,7 @@ export class SearchComponent implements OnInit {
   cards1?: any[]
   cards: Card[] =[]
   value: string[] = [];
+  admin=false;
 
   constructor(
     iconRegistry: MatIconRegistry,
@@ -60,6 +63,8 @@ export class SearchComponent implements OnInit {
     private ingredientsService: IngredientsService,
     private categoryService: CategoryService,
     private ingredientService: IngredientService,
+    private userService: UserService,
+    private router: Router
   ) {
     iconRegistry.addSvgIcon('ingredientes', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 2.svg'))
     iconRegistry.addSvgIcon('coccion', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/image 3.svg'))
@@ -155,9 +160,20 @@ export class SearchComponent implements OnInit {
     this.cards = this.cards1!.filter(card => card.name!.toLowerCase().includes(filterValue))
   }
 
+  newRecipe(){
+    this.router.navigate(['/admin/newRecipe'])
+  }
+
   ngOnInit(): void {
     this.fetchRecipes()
     this.fetchNodes()
+    this.userService.getUserById(localStorage.getItem('user')!).subscribe(
+      user=>{
+        if(user.rol==='Administrador'){
+          this.admin=true
+        }
+      }
+    )
 
     this.filteredOptions_1 = this.myControl_1.valueChanges.pipe(
       startWith(''),

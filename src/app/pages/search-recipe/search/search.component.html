@@ -1,11 +1,11 @@
 <div class="img-bg">
-  <div class="btn-menu">
-    <button class="btn" mat-fab color="primary" aria-label="menu">
+  <div *ngIf="admin" class="btn-menu">
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="newRecipe()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
   <img class="background" src="../../../../assets/image 12.jpg" alt="">
-  <h1 class="title-header">Gastro Academi</h1>
+  <h1 class="title-header">Gastro Academi</h1>s
 </div>
 <div class="main">
   <img class="lechuga" src="../../../../assets/image 8.png" alt="">

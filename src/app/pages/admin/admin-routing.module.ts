@@ -6,6 +6,7 @@ import { LoginComponent } from './layer/login/login.component';
 import { LayerComponent } from './layer/layer.component';
 import { NuevoTestComponent } from './layer/nuevo-test/nuevo-test.component';
 import { SingUpComponent } from './components/sing-up/sing-up.component';
+import { AuthGuard } from 'src/app/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -32,7 +33,8 @@ const routes: Routes = [
   },
   {
     path:'newRecipe',
-    component: NuevoTestComponent
+    component: NuevoTestComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:"**",
