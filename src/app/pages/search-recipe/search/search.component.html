@@ -1,4 +1,9 @@
 <div class="img-bg">
+  <div class="btn-menu">
+    <button class="btn" mat-fab color="primary" aria-label="menu">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
   <img class="background" src="../../../../assets/image 12.jpg" alt="">
   <h1 class="title-header">Gastro Academi</h1>
 </div>
@@ -16,18 +21,10 @@
       </div>
       <div class="filters">
         <!---->
-        <nz-tree-select style="width: 250px"
-        nzPlaceHolder="Ingredientes..."
-        [(ngModel)]="value"
-        [nzShowSearch]='true'
-        [nzMaxTagCount]="10"
-        [nzVirtualItemSize]='15'
-        [nzMaxTagPlaceholder]="omittedPlaceHolder"
-        [nzNodes]="nodes" [nzDefaultExpandAll]="true"
-        [nzAllowClear]="false"
-        [nzMultiple]="true"
-        (ngModelChange)="onChange($event)">
-      </nz-tree-select>
+        <nz-tree-select style="width: 250px" nzPlaceHolder="Ingredientes..." [(ngModel)]="value" [nzShowSearch]='true'
+          [nzMaxTagCount]="10" [nzVirtualItemSize]='15' [nzMaxTagPlaceholder]="omittedPlaceHolder" [nzNodes]="nodes"
+          [nzDefaultExpandAll]="true" [nzAllowClear]="false" [nzMultiple]="true" (ngModelChange)="onChange($event)">
+        </nz-tree-select>
 
         <ng-template #omittedPlaceHolder let-omittedValues>and {{ omittedValues.length }} more...</ng-template>
 
