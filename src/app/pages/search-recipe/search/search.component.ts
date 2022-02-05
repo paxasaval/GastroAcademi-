@@ -25,7 +25,7 @@ export interface Conservacion {
 export interface Tecnicas {
   name?: string;
 }
-export interface Card{
+export interface Card {
   name?: string
   image?: string
   path?: string
@@ -50,11 +50,11 @@ export class SearchComponent implements OnInit {
   filteredOptions_1?: Observable<Cooccion[]>;
   filteredOptions_2?: Observable<Conservacion[]>;
   filteredOptions_3?: Observable<Tecnicas[]>;
-  nodes: NzTreeNodeOptions[]=[]
+  nodes: NzTreeNodeOptions[] = []
   cards1?: any[]
-  cards: Card[] =[]
+  cards: Card[] = []
   value: string[] = [];
-  admin=false;
+  admin = false;
 
   constructor(
     iconRegistry: MatIconRegistry,
@@ -109,7 +109,6 @@ export class SearchComponent implements OnInit {
     var filterRecipe = this.cards1
     for (const ingredient of ingredients) {
       this.cards = []
-      console.log(filterRecipe)
       const auxRecipe = await new Promise<any[]>((resolve, reject) => {
         this.ingredientsService.getIngredientsByIngredient(ingredient).subscribe(
           result => {
@@ -129,20 +128,20 @@ export class SearchComponent implements OnInit {
 
   }
 
-  fetchRecipes(){
+  fetchRecipes() {
 
     this.recipeService.getAllrecipes().subscribe(
-      result=>{
+      result => {
         console.log(result)
-        this.cards=[]
-        result.forEach(x=>{
-          var auxRecipe:Card ={}
-          auxRecipe.name=x.name
-          auxRecipe.image=x.image
-          auxRecipe.path=x.id
+        this.cards = []
+        result.forEach(x => {
+          var auxRecipe: Card = {}
+          auxRecipe.name = x.name
+          auxRecipe.image = x.image
+          auxRecipe.path = x.id
           this.cards.push(auxRecipe)
         })
-        this.cards1=this.cards
+        this.cards1 = this.cards
       }
     )
   }
@@ -160,7 +159,7 @@ export class SearchComponent implements OnInit {
     this.cards = this.cards1!.filter(card => card.name!.toLowerCase().includes(filterValue))
   }
 
-  newRecipe(){
+  newRecipe() {
     this.router.navigate(['/admin/newRecipe'])
   }
 
@@ -168,9 +167,9 @@ export class SearchComponent implements OnInit {
     this.fetchRecipes()
     this.fetchNodes()
     this.userService.getUserById(localStorage.getItem('user')!).subscribe(
-      user=>{
-        if(user.rol==='Administrador'){
-          this.admin=true
+      user => {
+        if (user.rol === 'Administrador') {
+          this.admin = true
         }
       }
     )
