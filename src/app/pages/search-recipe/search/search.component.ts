@@ -38,6 +38,7 @@ export interface Card {
 })
 export class SearchComponent implements OnInit {
 
+
   myControl = new FormControl();
   myControl_1 = new FormControl();
   myControl_2 = new FormControl();
@@ -53,6 +54,8 @@ export class SearchComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = []
   cards1?: any[]
   cards: Card[] = []
+  lastCards: Card[] = []
+  viewAll = false;
   value: string[] = [];
   admin = false;
 
@@ -98,7 +101,6 @@ export class SearchComponent implements OnInit {
           })
           auxNode.children = ingredients
           this.nodes.push(auxNode)
-          console.log(auxNode)
         }
       }
     )
@@ -128,11 +130,29 @@ export class SearchComponent implements OnInit {
 
   }
 
+  fetchLastRecipes() {
+    this.recipeService.getLastRecipes().subscribe(
+      result => {
+        var i = 0
+        result.forEach(x => {
+          if (i < 20) {
+            var auxRecipe: Card = {}
+            auxRecipe.name = x.name
+            auxRecipe.image = x.image
+            auxRecipe.path = x.id
+            this.lastCards.push(auxRecipe)
+          }
+          i = i + 1
+        })
+        console.log(this.lastCards)
+      }
+    )
+  }
+
   fetchRecipes() {
 
     this.recipeService.getAllrecipes().subscribe(
       result => {
-        console.log(result)
         this.cards = []
         result.forEach(x => {
           var auxRecipe: Card = {}
@@ -148,15 +168,22 @@ export class SearchComponent implements OnInit {
 
   onChange($event: string[]): void {
     if ($event.length > 0) {
+      this.viewAll = true
       this.fetchCards($event)
     } else {
+      this.viewAll = false
       this.cards = this.cards1!
     }
 
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    this.cards = this.cards1!.filter(card => card.name!.toLowerCase().includes(filterValue))
+    if (filterValue === '') {
+      this.viewAll = false
+    } else {
+      this.viewAll = true
+      this.cards = this.cards1!.filter(card => card.name!.toLowerCase().includes(filterValue))
+    }
   }
 
   newRecipe() {
@@ -166,6 +193,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.fetchRecipes()
     this.fetchNodes()
+    this.fetchLastRecipes()
     this.userService.getUserById(localStorage.getItem('user')!).subscribe(
       user => {
         if (user.rol === 'Administrador') {
