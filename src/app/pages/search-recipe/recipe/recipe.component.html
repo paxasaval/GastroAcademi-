@@ -1,6 +1,15 @@
 <div class="main">
   <div class="header">
     <h1>{{recipe.name}}</h1>
+    <div class="btn-menu">
+      <button class="btn" mat-fab color="primary" aria-label="menu" (click)="home()">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button class="btn" mat-fab color="primary" aria-label="menu" (click)="download()">
+        <mat-icon>print</mat-icon>
+      </button>
+    </div>
+
   </div>
   <!-- Primera Seccion -->
   <!-- Receta -->
@@ -76,7 +85,7 @@
             <button class="btn-end" color='primary' mat-button (click)="cd.pause()">Pausar</button>
           </div>
           <div class="timer-time">
-            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: 'mm:ss',demand: true }"></countdown>
+            <countdown class="countdownS" #cd [config]="{ leftTime: timer, format: format,demand: true }"></countdown>
             <p>Tiempo Restante Aprox.</p>
           </div>
         </div>

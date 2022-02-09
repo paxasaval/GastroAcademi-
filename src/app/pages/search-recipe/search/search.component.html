@@ -1,6 +1,7 @@
 <div class="img-bg">
-  <div class="btn-menu">
-    <button class="btn" mat-fab color="primary" aria-label="menu">
+  <div *ngIf="admin" class="btn-menu">
+    <h3>Crear nueva receta</h3>
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="newRecipe()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -21,9 +22,9 @@
       </div>
       <div class="filters">
         <!---->
-        <nz-tree-select style="width: 250px" nzPlaceHolder="Ingredientes..." [(ngModel)]="value" [nzShowSearch]='true'
+        <nz-tree-select style="width: 400px"  nzPlaceHolder="Ingredientes..." [(ngModel)]="value" [nzShowSearch]='true'
           [nzMaxTagCount]="10" [nzVirtualItemSize]='15' [nzMaxTagPlaceholder]="omittedPlaceHolder" [nzNodes]="nodes"
-          [nzDefaultExpandAll]="true" [nzAllowClear]="false" [nzMultiple]="true" (ngModelChange)="onChange($event)">
+          [nzDefaultExpandAll]="false" [nzAllowClear]="false" [nzMultiple]="true" (ngModelChange)="onChange($event)">
         </nz-tree-select>
 
         <ng-template #omittedPlaceHolder let-omittedValues>and {{ omittedValues.length }} more...</ng-template>
@@ -36,6 +37,10 @@
       <div *ngFor="let card of cards">
         <app-recipe-card [card]='card'></app-recipe-card>
       </div>
+      <div *ngIf="cards.length == 0">
+        <span>No hay recetas con estos Ingredientes</span>
+      </div>
     </div>
   </div>
+
 </div>

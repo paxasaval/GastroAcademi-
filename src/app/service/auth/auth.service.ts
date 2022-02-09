@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { from, map, Observable, switchMap } from 'rxjs';
+import { from, map, Observable, switchMap, take } from 'rxjs';
 import { User, UserId } from 'src/app/models/user';
 import { UserService } from '../user/user.service';
 
@@ -10,7 +12,12 @@ import { UserService } from '../user/user.service';
 })
 export class AuthService {
 
-  constructor(private auth: Auth, private userSerevice: UserService) { }
+  constructor(
+    private auth: Auth,
+    private userSerevice: UserService,
+    private authorize: AngularFireAuth,
+    private router: Router) {
+  }
 
   signUp(name: string, email: string, password: string, rol:string): Observable<any> {
     return from(
@@ -30,11 +37,22 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return from(signInWithEmailAndPassword(this.auth, email, password));
+    this.userSerevice.getUserById(email).subscribe(
+      user=>{
+        localStorage.setItem('user',user.id)
+      }
+    )
+    return from(signInWithEmailAndPassword(this.auth, email, password))
   }
 
   logout(): Observable<any> {
     return from(this.auth.signOut())
   }
+
+  whoLogged(){
+
+  }
+
+
 
 }
