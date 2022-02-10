@@ -29,6 +29,16 @@ export class RecipeService {
      )
    }
 
+   getLastRecipes(){
+     return this.afs.collection<Recipe>('recipes', ref => ref.orderBy('created','desc')).snapshotChanges().pipe(
+      map(actions => actions.map(a=>{
+        const data = a.payload.doc.data() as RecipeId
+        data.id = a.payload.doc.id
+        return data
+     }))
+     )
+   }
+
    getRecipeById(recipe:string){
      return this.afs.doc<Recipe>(`recipes/${recipe}`).snapshotChanges().pipe(
        map(a => {
