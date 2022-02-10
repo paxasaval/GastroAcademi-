@@ -45,7 +45,8 @@ export class SingInComponent implements OnInit {
         error: 'Ha ocurrido un error al iniciar sesion, Intente mas tarde'
       })
     ).subscribe(()=>{
-      this.router.navigate([''])
+
+
     });
   }
   signUp(){
