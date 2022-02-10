@@ -171,9 +171,15 @@ export class NuevoTestComponent implements OnInit {
                       await this.timesService.postTimes(time).then(
                         result => {
                           load.close()
+                          this.techniques = [{}]
+                          this.ingredients = [{}]
+                          this.instructions = []
+                          this.times = [{}]
                           Swal.fire({
                             icon: 'success',
                             title: 'Receta creada con exito',
+
+
                           })
                         }
                       )

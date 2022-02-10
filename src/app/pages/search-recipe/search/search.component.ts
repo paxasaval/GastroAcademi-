@@ -136,6 +136,7 @@ export class SearchComponent implements OnInit {
     this.recipeService.getLastRecipes().subscribe(
       result => {
         var i = 0
+        this.cards = []
         result.forEach(x => {
           if (i < 8) {
             var auxRecipe: Card = {}
