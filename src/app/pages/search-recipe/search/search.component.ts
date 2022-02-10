@@ -137,7 +137,7 @@ export class SearchComponent implements OnInit {
       result => {
         var i = 0
         result.forEach(x => {
-          if (i < 20) {
+          if (i < 8) {
             var auxRecipe: Card = {}
             auxRecipe.name = x.name
             auxRecipe.image = x.image
@@ -193,7 +193,7 @@ export class SearchComponent implements OnInit {
   }
 
   viewAllClic(){
-    
+
     if(this.viewAll){
       this.textView ='Ver todas las recetas'
     }else{
