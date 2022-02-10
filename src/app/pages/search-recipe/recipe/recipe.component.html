@@ -1,15 +1,25 @@
 <div class="main">
+  <div class="btn-menu">
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="home()">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="download()">
+      <mat-icon>print</mat-icon>
+    </button>
+  </div>
   <div class="header">
     <h1>{{recipe.name}}</h1>
-    <div class="btn-menu">
-      <button class="btn" mat-fab color="primary" aria-label="menu" (click)="home()">
-        <mat-icon>home</mat-icon>
-      </button>
-      <button class="btn" mat-fab color="primary" aria-label="menu" (click)="download()">
-        <mat-icon>print</mat-icon>
-      </button>
-    </div>
+    <div class="info-recipe">
+      <div class="text">
+        <label for="">Dificultad:</label>
+        <span> {{recipe.difficulty}}</span>
+      </div>
+      <div>
+        <label for="">Porciones:</label>
+        <span> {{recipe.portions}}</span>
+      </div>
 
+    </div>
   </div>
   <!-- Primera Seccion -->
   <!-- Receta -->
@@ -127,7 +137,9 @@
         <p class="description">{{tech.description}}</p>
       </div>
       <div *ngIf="tech.technique!.type == 1" class="container-img-tech">
-        <img src="../../../../assets/URL1.png" alt="">
+        <a [href]="tech.technique!.resource">
+          <img src="../../../../assets/URL1.png" alt="">
+        </a>
       </div>
       <div *ngIf="tech.technique!.type == 2" class="container-img-tech">
         <iframe width="560" height="315" [src]="auxTechnique[techniques.indexOf(tech)]" title="YouTube video player"

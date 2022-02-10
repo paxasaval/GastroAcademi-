@@ -1,12 +1,18 @@
 <div class="img-bg">
   <div *ngIf="admin" class="btn-menu">
-    <h3>Crear nueva receta</h3>
-    <button class="btn" mat-fab color="primary" aria-label="menu" (click)="newRecipe()">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div class="label-btn">
+      <h3>Crear nueva receta</h3>
+    </div>
+    <div class="btn-new">
+      <button class="btn" mat-fab color="primary" aria-label="menu" (click)="newRecipe()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
   </div>
   <img class="background" src="../../../../assets/image 12.jpg" alt="">
-  <h1 class="title-header">Gastro Academi</h1>
+  <img src="./../../../../../assets/gastroacademi 3.png" alt="gastroAcademi-logo" class="title-header">
+  <!-- <h1 class="title-header">Gastro Academi</h1> -->
 </div>
 <div class="main">
   <img class="lechuga" src="../../../../assets/image 8.png" alt="">
@@ -22,7 +28,7 @@
       </div>
       <div class="filters">
         <!---->
-        <nz-tree-select style="width: 400px"  nzPlaceHolder="Ingredientes..." [(ngModel)]="value" [nzShowSearch]='true'
+        <nz-tree-select style="width: 400px" nzPlaceHolder="Ingredientes..." [(ngModel)]="value" [nzShowSearch]='true'
           [nzMaxTagCount]="10" [nzVirtualItemSize]='15' [nzMaxTagPlaceholder]="omittedPlaceHolder" [nzNodes]="nodes"
           [nzDefaultExpandAll]="false" [nzAllowClear]="false" [nzMultiple]="true" (ngModelChange)="onChange($event)">
         </nz-tree-select>
@@ -33,12 +39,27 @@
 
       </div>
     </div>
-    <div class="grid-recipe">
-      <div *ngFor="let card of cards">
-        <app-recipe-card [card]='card'></app-recipe-card>
+
+    <div class="content-recipes">
+      <div class="btn-view">
+        <div >
+          <span (click)="viewAllClic()">{{textView}}</span>
+        </div>
       </div>
-      <div *ngIf="cards.length == 0">
-        <span>No hay recetas con estos Ingredientes</span>
+      <div>
+        <div *ngIf="viewAll" class="grid-recipe">
+          <div *ngFor="let card of cards">
+            <app-recipe-card [card]='card'></app-recipe-card>
+          </div>
+          <div *ngIf="cards.length == 0">
+            <span>No hay recetas con estos Ingredientes</span>
+          </div>
+        </div>
+        <div *ngIf="!viewAll" class="grid-recipe">
+          <div *ngFor="let card of lastCards">
+            <app-recipe-card [card]='card'> </app-recipe-card>
+          </div>
+        </div>
       </div>
     </div>
   </div>

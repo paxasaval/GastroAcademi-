@@ -45,6 +45,8 @@ export interface InstructionsList{
 export interface RecipeInfo{
   name?: string
   image?: string
+  portions?: number
+  difficulty?:number
 }
 
 

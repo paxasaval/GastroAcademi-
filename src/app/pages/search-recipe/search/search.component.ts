@@ -59,6 +59,8 @@ export class SearchComponent implements OnInit {
   value: string[] = [];
   admin = false;
 
+  textView ='Ver todas las recetas'
+
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -188,6 +190,16 @@ export class SearchComponent implements OnInit {
 
   newRecipe() {
     this.router.navigate(['/admin/newRecipe'])
+  }
+
+  viewAllClic(){
+    
+    if(this.viewAll){
+      this.textView ='Ver todas las recetas'
+    }else{
+      this.textView ='Ver ultimas recetas'
+    }
+    this.viewAll = !this.viewAll
   }
 
   ngOnInit(): void {
