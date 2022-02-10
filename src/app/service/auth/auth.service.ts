@@ -40,6 +40,7 @@ export class AuthService {
     this.userSerevice.getUserById(email).subscribe(
       user=>{
         localStorage.setItem('user',user.id)
+        this.router.navigate([''])
       }
     )
     return from(signInWithEmailAndPassword(this.auth, email, password))

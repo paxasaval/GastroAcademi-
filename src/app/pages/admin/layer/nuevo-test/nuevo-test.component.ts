@@ -24,6 +24,8 @@ import { Observable, Subscription, map } from 'rxjs';
 import { MatIconRegistry } from '@angular/material/icon';
 import { HotToastService } from '@ngneat/hot-toast';
 import Swal from 'sweetalert2'
+import  firebase  from 'firebase/compat/app';
+
 @Component({
   selector: 'app-nuevo-test',
   templateUrl: './nuevo-test.component.html',
@@ -138,6 +140,7 @@ export class NuevoTestComponent implements OnInit {
       newRecipe.portions = portions
       newRecipe.type = type
       newRecipe.difficulty = dificulty
+      newRecipe.created = firebase.firestore.Timestamp.now()
       this.recipeService.onUploadImage(this.img!).then(
         img => {
           img.ref.getDownloadURL().then(
